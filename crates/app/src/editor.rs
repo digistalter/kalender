@@ -232,7 +232,7 @@ pub fn open_existing(ui: &UiRc, id: Id, date: NaiveDate) {
         travel: entry.travel,
         buffer: entry.buffer,
         recurrence: entry.recurrence.clone(),
-        subtasks: entry.subtasks.clone(),
+        subtasks: entry.subtask_texts(),
         participants: entry.participants.clone(),
         routine: None,
         save_routine: false,
@@ -1345,25 +1345,8 @@ impl Editor {
             ));
         }
         entry.participants = draft.participants.clone();
-        let old_subtasks = entry.subtasks.clone();
-        entry.subtasks = draft.subtasks.clone();
-        if old_subtasks != entry.subtasks {
-            // Keep the ticks of subtasks that stayed, by text.
-            for flags in entry.done.values_mut() {
-                let kept: Vec<bool> = entry
-                    .subtasks
-                    .iter()
-                    .map(|s| {
-                        old_subtasks
-                            .iter()
-                            .position(|o| o == s)
-                            .and_then(|i| flags.get(i).copied())
-                            .unwrap_or(false)
-                    })
-                    .collect();
-                *flags = kept;
-            }
-        }
+        // Subtasks that stay keep their id and ticks.
+        entry.set_subtask_texts(&draft.subtasks);
         if existing.is_some() {
             entry.sequence += 1;
         }
@@ -1388,9 +1371,10 @@ impl Editor {
                 .unwrap_or(0);
             let routine = Routine {
                 id,
+                uid: String::new(),
                 name: entry.title.clone(),
                 minutes: (draft.end - draft.start).num_minutes(),
-                subtasks: entry.subtasks.clone(),
+                subtasks: entry.subtask_texts(),
             };
             if let Err(e) = ui.state.borrow_mut().save_routine(routine) {
                 ui.error(&e);

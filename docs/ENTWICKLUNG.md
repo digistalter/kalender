@@ -6,6 +6,7 @@ Wie man Kalender aus dem Quelltext baut, testet und ausprobiert. Für Nutzer ste
 
 | Pfad | Inhalt |
 |---|---|
+| [`crates/sync/`](../crates/sync/) | Regeln für den Abgleich zwischen Geräten (logische Uhr, Zusammenführen je Feld), ohne Speicher und Netz, mit Tests |
 | [`crates/core/`](../crates/core/) | Logik ohne Oberfläche, mit Tests |
 | [`crates/app/`](../crates/app/) | Die App mit GTK 4 und libadwaita |
 | [`data/`](../data/) | Starter-Eintrag, Metainfo, D-Bus-Dienst, Bildschirmfotos |
@@ -20,6 +21,7 @@ Wie man Kalender aus dem Quelltext baut, testet und ausprobiert. Für Nutzer ste
 | `model.rs` | Einträge, Arten, Serien, Routinen, Abo-Quellen |
 | `recur.rs` | Serien in einzelne Termine auflösen |
 | `store.rs` | Speicher (SQLite, je Objekt ein JSON-Datensatz), Sicherung und Wiederherstellen |
+| `journal.rs` | Änderungsprotokoll für den Abgleich: jede Änderung je Feld, mit Kennungen, die auf allen Geräten gleich sind |
 | `ics.rs` | iCalendar lesen und schreiben (Einladung, Antwort, Absage, Import, Export) |
 | `subscription.rs` | Abonnierte Kalender: Links umwandeln, Einträge bilden |
 | `vacation.rs` | Urlaubstage zählen, Alter |

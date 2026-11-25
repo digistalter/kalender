@@ -420,7 +420,7 @@ fn tasks_box(ui: &UiRc, item: &Item) -> gtk::Box {
     let id = item.entry.id;
     let date = item.occ.date;
     let flags = item.entry.done_on(date);
-    for (index, text) in item.entry.subtasks.iter().enumerate() {
+    for (index, text) in item.entry.subtask_texts().iter().enumerate() {
         let line = gtk::Box::new(gtk::Orientation::Horizontal, 4);
         let check = gtk::CheckButton::builder()
             .label(text)

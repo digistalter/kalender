@@ -546,6 +546,7 @@ fn kind_dialog(ui: &UiRc, kind: Option<Kind>, prefs: Option<adw::PreferencesDial
         name: String::new(),
         color: PALETTE[8].into(),
         icon: "star".into(),
+        uid: String::new(),
         builtin: None,
         visible: true,
         source: None,
@@ -765,6 +766,7 @@ fn routine_dialog(ui: &UiRc, routine: Option<Routine>, prefs: adw::PreferencesDi
     let editing = routine.is_some();
     let routine = routine.unwrap_or(Routine {
         id: 0,
+        uid: String::new(),
         name: String::new(),
         minutes: 60,
         subtasks: Vec::new(),
@@ -827,6 +829,7 @@ fn routine_dialog(ui: &UiRc, routine: Option<Routine>, prefs: adw::PreferencesDi
     dialog.set_close_response("cancel");
     let weak = Rc::downgrade(ui);
     let id: Id = routine.id;
+    let routine_uid = routine.uid.clone();
     let parent = prefs.clone();
     dialog.connect_response(None, move |_, response| {
         let Some(u) = weak.upgrade() else { return };
@@ -846,6 +849,7 @@ fn routine_dialog(ui: &UiRc, routine: Option<Routine>, prefs: adw::PreferencesDi
                 }
                 let r = Routine {
                     id,
+                    uid: routine_uid.clone(),
                     name: n,
                     minutes: minutes.value() as i64,
                     subtasks,

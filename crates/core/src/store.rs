@@ -3,16 +3,20 @@
 //! Local storage in SQLite. Every object is stored as JSON next to its id;
 //! a person's calendar is small enough to be held in memory as a whole.
 
+use std::cell::RefCell;
 use std::path::Path;
 
 use anyhow::{Context, Result};
 use rusqlite::{Connection, OptionalExtension, params};
 use serde::{Serialize, de::DeserializeOwned};
 
+use crate::journal::{entry_value, kind_value, routine_value};
 use crate::model::{Builtin, Entry, Id, Kind, Routine};
 
 pub struct Store {
-    conn: Connection,
+    pub(crate) conn: Connection,
+    /// Field-wise record of all changes, for syncing devices; `None` while starting.
+    pub(crate) journal: RefCell<Option<kalender_sync::Replica>>,
 }
 
 const TABLES: [&str; 3] = ["kinds", "entries", "routines"];
@@ -42,14 +46,40 @@ impl Store {
             "CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)",
             [],
         )?;
-        let store = Self { conn };
+        crate::journal::create_tables(&conn)?;
+        let store = Self {
+            conn,
+            journal: RefCell::new(None),
+        };
         if store.kinds()?.is_empty() {
             for kind in default_kinds() {
                 let mut kind = kind;
                 store.save_kind(&mut kind)?;
             }
         }
+        store.give_uids()?;
+        store.start_journal()?;
         Ok(store)
+    }
+
+    /// Kinds and routines from before 25.11.2026 have no uid yet.
+    fn give_uids(&self) -> Result<()> {
+        for mut kind in self.kinds()? {
+            if kind.uid.is_empty() {
+                kind.uid = match kind.builtin {
+                    Some(b) => builtin_uid(b),
+                    None => crate::model::new_uid(),
+                };
+                self.save_kind(&mut kind)?;
+            }
+        }
+        for mut routine in self.routines()? {
+            if routine.uid.is_empty() {
+                routine.uid = crate::model::new_uid();
+                self.save_routine(&mut routine)?;
+            }
+        }
+        Ok(())
     }
 
     fn all<T: DeserializeOwned>(&self, table: &str) -> Result<Vec<T>> {
@@ -94,14 +124,35 @@ impl Store {
     }
 
     pub fn save_kind(&self, kind: &mut Kind) -> Result<()> {
+        if kind.uid.is_empty() {
+            kind.uid = self
+                .kinds()?
+                .into_iter()
+                .find(|k| k.id == kind.id && kind.id != 0)
+                .map(|k| k.uid)
+                .filter(|u| !u.is_empty())
+                .unwrap_or_else(|| match kind.builtin {
+                    Some(b) => builtin_uid(b),
+                    None => crate::model::new_uid(),
+                });
+        }
         let mut id = kind.id;
         self.put("kinds", &mut id, |id| Kind { id, ..kind.clone() })?;
         kind.id = id;
-        Ok(())
+        self.journal("kind", &kind.uid, kind_value(kind))
     }
 
     pub fn delete_kind(&self, id: Id) -> Result<()> {
-        self.remove("kinds", id)
+        let uid = self
+            .kinds()?
+            .into_iter()
+            .find(|k| k.id == id)
+            .map(|k| k.uid);
+        self.remove("kinds", id)?;
+        match uid {
+            Some(uid) => self.journal("kind", &uid, None),
+            None => Ok(()),
+        }
     }
 
     pub fn entries(&self) -> Result<Vec<Entry>> {
@@ -109,6 +160,14 @@ impl Store {
     }
 
     pub fn save_entry(&self, entry: &mut Entry) -> Result<()> {
+        self.put_entry(entry)?;
+        if let Some(value) = entry_value(entry, &self.kinds()?) {
+            self.journal("entry", &entry.uid, Some(value))?;
+        }
+        Ok(())
+    }
+
+    fn put_entry(&self, entry: &mut Entry) -> Result<()> {
         let mut id = entry.id;
         self.put("entries", &mut id, |id| Entry {
             id,
@@ -119,7 +178,19 @@ impl Store {
     }
 
     pub fn delete_entry(&self, id: Id) -> Result<()> {
-        self.remove("entries", id)
+        let uid: Option<String> = self
+            .conn
+            .query_row(
+                "SELECT json_extract(data, '$.uid') FROM entries WHERE id = ?1",
+                params![id],
+                |r| r.get(0),
+            )
+            .optional()?;
+        self.remove("entries", id)?;
+        match uid {
+            Some(uid) => self.journal("entry", &uid, None),
+            None => Ok(()),
+        }
     }
 
     /// Replaces all entries of one kind in one go (used for subscribed calendars).
@@ -129,9 +200,10 @@ impl Store {
             "DELETE FROM entries WHERE json_extract(data, '$.kind') = ?1",
             params![kind],
         )?;
+        // Subscribed entries are not journaled: every device loads them itself.
         for entry in entries.iter_mut() {
             entry.id = 0;
-            self.save_entry(entry)?;
+            self.put_entry(entry)?;
         }
         tx.commit()?;
         Ok(())
@@ -175,7 +247,10 @@ impl Store {
             Ok(())
         })();
         self.conn.execute("DETACH DATABASE backup", [])?;
-        result
+        result?;
+        // The restored state is new for all other devices.
+        self.give_uids()?;
+        self.resync_all()
     }
 
     pub fn routines(&self) -> Result<Vec<Routine>> {
@@ -183,17 +258,35 @@ impl Store {
     }
 
     pub fn save_routine(&self, routine: &mut Routine) -> Result<()> {
+        if routine.uid.is_empty() {
+            routine.uid = self
+                .routines()?
+                .into_iter()
+                .find(|r| r.id == routine.id && routine.id != 0)
+                .map(|r| r.uid)
+                .filter(|u| !u.is_empty())
+                .unwrap_or_else(crate::model::new_uid);
+        }
         let mut id = routine.id;
         self.put("routines", &mut id, |id| Routine {
             id,
             ..routine.clone()
         })?;
         routine.id = id;
-        Ok(())
+        self.journal("routine", &routine.uid, routine_value(routine))
     }
 
     pub fn delete_routine(&self, id: Id) -> Result<()> {
-        self.remove("routines", id)
+        let uid = self
+            .routines()?
+            .into_iter()
+            .find(|r| r.id == id)
+            .map(|r| r.uid);
+        self.remove("routines", id)?;
+        match uid {
+            Some(uid) => self.journal("routine", &uid, None),
+            None => Ok(()),
+        }
     }
 
     pub fn setting(&self, key: &str) -> Result<Option<String>> {
@@ -212,15 +305,21 @@ impl Store {
             "INSERT OR REPLACE INTO settings (key, value) VALUES (?1, ?2)",
             params![key, value],
         )?;
-        Ok(())
+        self.journal_setting(key, value)
     }
 }
 
 /// Termin, Meeting, Aufgabe, Urlaub, Geburtstag, Feiertag – names are English
 /// in the database and translated for display while unchanged.
+/// The same uid on every device, so built-in kinds match up when syncing.
+pub fn builtin_uid(builtin: Builtin) -> String {
+    format!("builtin-{}", format!("{builtin:?}").to_lowercase())
+}
+
 pub fn default_kinds() -> Vec<Kind> {
     let kind = |name: &str, color: &str, icon: &str, builtin| Kind {
         id: 0,
+        uid: builtin_uid(builtin),
         name: name.to_owned(),
         color: color.to_owned(),
         icon: icon.to_owned(),
@@ -278,6 +377,7 @@ mod tests {
     fn routines_roundtrip() {
         let store = Store::in_memory().unwrap();
         let mut r = Routine {
+            uid: String::new(),
             id: 0,
             name: "Putzen".into(),
             minutes: 120,

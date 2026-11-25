@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
 use chrono::{Datelike, Duration, NaiveDate, NaiveDateTime, NaiveTime, Weekday};
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
 
 pub type Id = i64;
 
@@ -29,6 +29,9 @@ impl Builtin {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Kind {
     pub id: Id,
+    /// Same on every device (built-in kinds: `builtin-…`), used for syncing.
+    #[serde(default)]
+    pub uid: String,
     pub name: String,
     /// `#rrggbb`
     pub color: String,
@@ -132,12 +135,12 @@ pub struct Entry {
     /// Occurrence dates removed from a series.
     #[serde(default)]
     pub exceptions: Vec<NaiveDate>,
-    #[serde(default)]
-    pub subtasks: Vec<String>,
-    /// Which subtasks are done, per occurrence date. Every occurrence of a
-    /// recurring task starts with everything open.
-    #[serde(default)]
-    pub done: BTreeMap<NaiveDate, Vec<bool>>,
+    #[serde(default, deserialize_with = "read_subtasks")]
+    pub subtasks: Vec<Subtask>,
+    /// Ids of the subtasks that are done, per occurrence date. Every
+    /// occurrence of a recurring task starts with everything open.
+    #[serde(default, deserialize_with = "read_done")]
+    pub done: BTreeMap<NaiveDate, BTreeSet<String>>,
     #[serde(default)]
     pub participants: Vec<Participant>,
     /// Set when the entry came from someone else's invitation.
@@ -192,19 +195,47 @@ impl Entry {
         !self.subtasks.is_empty()
     }
 
-    /// Done flags of one occurrence, always as long as `subtasks`.
+    /// Done flags of one occurrence, in the order of `subtasks`.
     pub fn done_on(&self, date: NaiveDate) -> Vec<bool> {
-        let mut flags = self.done.get(&date).cloned().unwrap_or_default();
-        flags.resize(self.subtasks.len(), false);
-        flags
+        let done = self.done.get(&date);
+        self.subtasks
+            .iter()
+            .map(|s| done.is_some_and(|d| d.contains(&s.id)))
+            .collect()
     }
 
     pub fn set_done(&mut self, date: NaiveDate, index: usize, done: bool) {
-        let mut flags = self.done_on(date);
-        if let Some(flag) = flags.get_mut(index) {
-            *flag = done;
+        let Some(id) = self.subtasks.get(index).map(|s| s.id.clone()) else {
+            return;
+        };
+        let set = self.done.entry(date).or_default();
+        if done {
+            set.insert(id);
+        } else {
+            set.remove(&id);
         }
-        self.done.insert(date, flags);
+        if set.is_empty() {
+            self.done.remove(&date);
+        }
+    }
+
+    /// The subtask texts, in order.
+    pub fn subtask_texts(&self) -> Vec<String> {
+        self.subtasks.iter().map(|s| s.text.clone()).collect()
+    }
+
+    /// Replaces the subtask list by `texts`. Subtasks whose text stays keep
+    /// their id (and so their ticks); the others are new or removed.
+    pub fn set_subtask_texts(&mut self, texts: &[String]) {
+        let mut old = std::mem::take(&mut self.subtasks);
+        for text in texts {
+            let subtask = match old.iter().position(|s| &s.text == text) {
+                Some(i) => old.remove(i),
+                None => Subtask::new(text),
+            };
+            self.subtasks.push(subtask);
+        }
+        self.forget_removed_ticks();
     }
 
     /// (done, total) for one occurrence.
@@ -219,10 +250,7 @@ impl Entry {
     }
 
     pub fn add_subtask(&mut self, text: &str) {
-        self.subtasks.push(text.to_owned());
-        for flags in self.done.values_mut() {
-            flags.resize(self.subtasks.len(), false);
-        }
+        self.subtasks.push(Subtask::new(text));
     }
 
     pub fn remove_subtask(&mut self, index: usize) {
@@ -230,11 +258,15 @@ impl Entry {
             return;
         }
         self.subtasks.remove(index);
-        for flags in self.done.values_mut() {
-            if index < flags.len() {
-                flags.remove(index);
-            }
+        self.forget_removed_ticks();
+    }
+
+    fn forget_removed_ticks(&mut self) {
+        let ids: BTreeSet<&String> = self.subtasks.iter().map(|s| &s.id).collect();
+        for set in self.done.values_mut() {
+            set.retain(|id| ids.contains(id));
         }
+        self.done.retain(|_, set| !set.is_empty());
     }
 
     /// Number of days an all-day entry covers (at least 1).
@@ -243,10 +275,79 @@ impl Entry {
     }
 }
 
+/// One subtask of a task. The id stays the same on every device, so ticks
+/// can be synced per subtask.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct Subtask {
+    pub id: String,
+    pub text: String,
+}
+
+impl Subtask {
+    pub fn new(text: &str) -> Self {
+        Self {
+            id: new_short_id(),
+            text: text.to_owned(),
+        }
+    }
+}
+
+/// Reads subtasks; data from before 25.11.2026 has plain texts, which get the ids `s0`, `s1` …
+fn read_subtasks<'de, D: Deserializer<'de>>(d: D) -> Result<Vec<Subtask>, D::Error> {
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum Wire {
+        Text(String),
+        Full(Subtask),
+    }
+    Ok(Vec::<Wire>::deserialize(d)?
+        .into_iter()
+        .enumerate()
+        .map(|(i, w)| match w {
+            Wire::Text(text) => Subtask {
+                id: format!("s{i}"),
+                text,
+            },
+            Wire::Full(s) => s,
+        })
+        .collect())
+}
+
+/// Reads done ticks; older data has one flag per subtask position (ids `s0`, `s1` …).
+fn read_done<'de, D: Deserializer<'de>>(
+    d: D,
+) -> Result<BTreeMap<NaiveDate, BTreeSet<String>>, D::Error> {
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum Wire {
+        Flags(Vec<bool>),
+        Ids(BTreeSet<String>),
+    }
+    Ok(BTreeMap::<NaiveDate, Wire>::deserialize(d)?
+        .into_iter()
+        .map(|(date, w)| {
+            let ids = match w {
+                Wire::Ids(ids) => ids,
+                Wire::Flags(flags) => flags
+                    .iter()
+                    .enumerate()
+                    .filter(|(_, f)| **f)
+                    .map(|(i, _)| format!("s{i}"))
+                    .collect(),
+            };
+            (date, ids)
+        })
+        .filter(|(_, ids)| !ids.is_empty())
+        .collect())
+}
+
 /// A saved template for tasks: title, duration and subtasks.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Routine {
     pub id: Id,
+    /// Same on every device, used for syncing.
+    #[serde(default)]
+    pub uid: String,
     pub name: String,
     pub minutes: i64,
     pub subtasks: Vec<String>,
@@ -273,6 +374,17 @@ pub fn new_uid() -> String {
         std::process::id(),
         n
     )
+}
+
+/// A short id that is unique enough to be made on several devices at once.
+pub fn new_short_id() -> String {
+    use std::hash::{BuildHasher, Hasher};
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static COUNTER: AtomicU64 = AtomicU64::new(0);
+    let mut h = std::collections::hash_map::RandomState::new().build_hasher();
+    h.write_u64(COUNTER.fetch_add(1, Ordering::Relaxed));
+    h.write_i64(chrono::Utc::now().timestamp_nanos_opt().unwrap_or_default());
+    format!("{:016x}", h.finish())
 }
 
 pub fn weekday_index(day: Weekday) -> u8 {
@@ -319,6 +431,20 @@ mod tests {
         assert!(!e.all_done(d(2026, 11, 24)));
         e.remove_subtask(0);
         assert_eq!(e.done_on(d(2026, 11, 24)), vec![true, false]);
+        // Editing the list keeps ticks of subtasks that stay.
+        e.set_subtask_texts(&["Küche".into(), "Bad".into(), "Fenster".into()]);
+        assert_eq!(e.done_on(d(2026, 11, 24)), vec![false, true, false]);
+    }
+
+    #[test]
+    fn reads_subtasks_of_older_versions() {
+        let json = r#"{"id":1,"uid":"u","kind":1,"title":"Putzen","start":"2026-11-24T15:00:00","end":"2026-11-24T17:00:00","all_day":false,"subtasks":["Bad","Küche"],"done":{"2026-11-24":[false,true]}}"#;
+        let e: Entry = serde_json::from_str(json).unwrap();
+        assert_eq!(e.subtask_texts(), vec!["Bad", "Küche"]);
+        assert_eq!(e.done_on(d(2026, 11, 24)), vec![false, true]);
+        // and the new format reads back the same
+        let again: Entry = serde_json::from_str(&serde_json::to_string(&e).unwrap()).unwrap();
+        assert_eq!(again, e);
     }
 
     #[test]

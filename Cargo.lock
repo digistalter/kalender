@@ -646,10 +646,19 @@ version = "1.0.0"
 dependencies = [
  "anyhow",
  "chrono",
+ "kalender-sync",
  "rusqlite",
  "serde",
  "serde_json",
  "tracing",
+]
+
+[[package]]
+name = "kalender-sync"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

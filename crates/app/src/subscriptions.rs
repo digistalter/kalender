@@ -208,6 +208,7 @@ fn add(ui: &UiRc, url: String, wanted: String, calendar: Calendar) {
         name,
         color,
         icon: "globe".into(),
+        uid: String::new(),
         builtin: None,
         visible: true,
         source: Some(Source {

@@ -2,6 +2,7 @@
 
 pub mod holidays;
 pub mod ics;
+pub mod journal;
 pub mod layout;
 pub mod model;
 pub mod recur;

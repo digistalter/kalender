@@ -77,8 +77,9 @@ pub fn detached(entry: &Entry, date: NaiveDate, start: NaiveDateTime) -> Entry {
     copy.start = start;
     copy.end = start + entry.duration();
     copy.done.clear();
-    let flags = entry.done_on(date);
-    copy.done.insert(start.date(), flags);
+    if let Some(ticks) = entry.done.get(&date) {
+        copy.done.insert(start.date(), ticks.clone());
+    }
     copy
 }
 
@@ -300,9 +301,10 @@ pub fn save_as_routine(ui: &UiRc, id: Id) {
         .cloned();
     let routine = Routine {
         id: existing.map(|r| r.id).unwrap_or(0),
+        uid: String::new(),
         name: entry.title.clone(),
         minutes: entry.duration().num_minutes(),
-        subtasks: entry.subtasks.clone(),
+        subtasks: entry.subtask_texts(),
     };
     let result = ui.state.borrow_mut().save_routine(routine);
     match result {

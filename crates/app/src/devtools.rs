@@ -157,6 +157,7 @@ pub fn demo(state: &mut State) {
         ),
     ] {
         let _ = state.save_routine(Routine {
+            uid: String::new(),
             id: 0,
             name: name.into(),
             minutes,

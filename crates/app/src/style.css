@@ -1,0 +1,14 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+.done-task label { text-decoration-line: line-through; opacity: 0.6; }
+button.kind-chip { border-radius: 999px; padding: 4px 14px; }
+/* Chips in flow boxes: no square hover behind the round button. */
+flowbox.chips > flowboxchild { padding: 0; background: none; border-radius: 999px; outline: none; }
+button.weekday { min-width: 32px; min-height: 32px; padding: 0; }
+button.small-pill { padding: 2px 12px; min-height: 26px; }
+calendar.mini-calendar { background: none; border: none; }
+calendar.mini-calendar > grid > label.today:not(:selected) { color: #e95420; font-weight: bold; }
+.detail-row label { font-size: 0.95em; }
+list.agenda { background: none; }
+list.agenda row.activatable { border-radius: 8px; margin: 0 6px; }
+levelbar.task-progress block.filled { background-color: #2e9d76; }
+levelbar.task-progress block.empty { background-color: alpha(currentColor, 0.12); }

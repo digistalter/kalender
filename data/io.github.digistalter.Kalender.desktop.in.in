@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Kalender
+Comment=Plan appointments, meetings and tasks
+Exec=kalender %U
+Icon=@APP_ID@
+Terminal=false
+Type=Application
+Categories=GTK;GNOME;Office;Calendar;
+# Translators: search terms, separated by semicolons, ending with a semicolon.
+Keywords=calendar;appointment;meeting;task;routine;vacation;
+MimeType=text/calendar;
+StartupNotify=true
+DBusActivatable=true
+X-GNOME-UsesNotifications=true

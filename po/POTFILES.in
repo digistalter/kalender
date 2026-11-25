@@ -1,0 +1,17 @@
+crates/app/src/application.rs
+crates/app/src/background.rs
+crates/app/src/backup.rs
+crates/app/src/detail.rs
+crates/app/src/editor.rs
+crates/app/src/fmt.rs
+crates/app/src/month.rs
+crates/app/src/notify.rs
+crates/app/src/ops.rs
+crates/app/src/prefs.rs
+crates/app/src/share.rs
+crates/app/src/state.rs
+crates/app/src/subscriptions.rs
+crates/app/src/week.rs
+crates/app/src/window.rs
+data/io.github.digistalter.Kalender.desktop.in.in
+data/io.github.digistalter.Kalender.metainfo.xml.in

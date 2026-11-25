@@ -1,0 +1,18 @@
+[package]
+name = "kalender-core"
+description = "Calendar logic for Kalender: entries, recurrence, storage and iCalendar"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+chrono.workspace = true
+rusqlite = { version = "0.43", features = ["bundled"] }
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true

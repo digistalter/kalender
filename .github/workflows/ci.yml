@@ -1,0 +1,93 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Builds and checks every pull request on Ubuntu, on Fedora and as a Flatpak.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  ubuntu:
+    name: Ubuntu
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libgtk-4-dev libadwaita-1-dev libsoup-3.0-dev \
+            meson ninja-build gettext desktop-file-utils appstream \
+            libglib2.0-dev-bin
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Formatting
+        run: cargo fmt --all --check
+      - name: Lints
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Tests
+        run: cargo test
+      - name: Meson build and checks
+        run: |
+          meson setup builddir --prefix=/usr
+          meson compile -C builddir
+          meson test -C builddir --print-errorlogs
+          DESTDIR="$PWD/install-root" meson install -C builddir
+
+  fedora:
+    name: Fedora
+    runs-on: ubuntu-24.04
+    container: fedora:latest
+    steps:
+      - name: Install system packages
+        run: |
+          dnf install -y --setopt=install_weak_deps=False \
+            git gcc cargo rust clippy rustfmt \
+            gtk4-devel libadwaita-devel libsoup3-devel \
+            meson ninja-build gettext desktop-file-utils appstream \
+            glib2-devel
+      - uses: actions/checkout@v4
+      - uses: Swatinem/rust-cache@v2
+      - name: Lints
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Tests
+        run: cargo test
+      - name: Meson build and checks
+        run: |
+          meson setup builddir --prefix=/usr
+          meson compile -C builddir
+          meson test -C builddir --print-errorlogs
+
+  flatpak:
+    name: Flatpak
+    runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-51
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+      # Updating the runtimes baked into the image fails with "Invalid
+      # cross-device link" on overlayfs. A copy lives in the writable layer.
+      - name: Make preinstalled runtimes updatable
+        run: |
+          cp -a /var/lib/flatpak /var/lib/flatpak.writable
+          rm -rf /var/lib/flatpak
+          mv /var/lib/flatpak.writable /var/lib/flatpak
+      - uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
+        with:
+          bundle: kalender.flatpak
+          manifest-path: build-aux/flatpak/io.github.digistalter.Kalender.json
+          cache-key: flatpak-builder-${{ github.sha }}

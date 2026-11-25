@@ -1,0 +1,1697 @@
+# German translation of Kalender.
+# Die Entwicklerinnen und Entwickler von Kalender.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kalender\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: crates/app/src/application.rs:138
+msgid "The developers of Kalender"
+msgstr "Die Entwicklerinnen und Entwickler von Kalender"
+
+#: crates/app/src/background.rs:18 crates/app/src/background.rs:48
+msgid "Show reminders after login"
+msgstr "Erinnerungen nach der Anmeldung zeigen"
+
+#: crates/app/src/backup.rs:26
+msgid "Kalender backups"
+msgstr "Kalender-Sicherungen"
+
+#: crates/app/src/detail.rs:108 crates/app/src/editor.rs:1105
+msgid "Every day"
+msgstr "Täglich"
+
+#: crates/app/src/detail.rs:109
+#, rust-format
+msgid "Every {} days"
+msgstr "Alle {} Tage"
+
+#: crates/app/src/detail.rs:110 crates/app/src/editor.rs:1106
+msgid "Every week"
+msgstr "Jede Woche"
+
+#: crates/app/src/detail.rs:111 crates/app/src/editor.rs:1107
+msgid "Every 2 weeks"
+msgstr "Alle 2 Wochen"
+
+#: crates/app/src/detail.rs:112
+#, rust-format
+msgid "Every {} weeks"
+msgstr "Alle {} Wochen"
+
+#: crates/app/src/detail.rs:113 crates/app/src/editor.rs:1108
+msgid "Every month"
+msgstr "Jeden Monat"
+
+#: crates/app/src/detail.rs:114
+#, rust-format
+msgid "Every {} months"
+msgstr "Alle {} Monate"
+
+#: crates/app/src/detail.rs:115 crates/app/src/editor.rs:1109
+msgid "Every year"
+msgstr "Jedes Jahr"
+
+#: crates/app/src/detail.rs:124
+#, rust-format
+msgid "{} on {}"
+msgstr "{} am {}"
+
+#: crates/app/src/detail.rs:128
+#, rust-format
+msgid "{}, until {}"
+msgstr "{}, bis {}"
+
+#: crates/app/src/detail.rs:129
+#, rust-format
+msgid "{}, {} times"
+msgstr "{}, {}-mal"
+
+#: crates/app/src/detail.rs:168
+#, rust-format
+msgid "{} · half day"
+msgstr "{} · halber Tag"
+
+#: crates/app/src/detail.rs:174
+#, rust-format
+msgid "{} · all-day"
+msgstr "{} · ganztägig"
+
+#: crates/app/src/detail.rs:198
+msgid "Close (Esc)"
+msgstr "Schließen (Esc)"
+
+#: crates/app/src/detail.rs:211
+#, rust-format
+msgid "{} travel time"
+msgstr "{} Reisezeit"
+
+#: crates/app/src/detail.rs:214
+#, rust-format
+msgid "{} buffer after"
+msgstr "{} Puffer danach"
+
+#: crates/app/src/detail.rs:223 crates/app/src/editor.rs:723
+#: crates/app/src/prefs.rs:129
+msgid "At the start"
+msgstr "Zu Beginn"
+
+#: crates/app/src/detail.rs:225 crates/app/src/editor.rs:724
+#: crates/app/src/prefs.rs:130
+#, rust-format
+msgid "{} before"
+msgstr "{} vorher"
+
+#: crates/app/src/detail.rs:244
+#, rust-format
+msgid "{} participant"
+msgid_plural "{} participants"
+msgstr[0] "{} Teilnehmer"
+msgstr[1] "{} Teilnehmer"
+
+#: crates/app/src/detail.rs:248
+#, rust-format
+msgid "{} accepted"
+msgid_plural "{} accepted"
+msgstr[0] "{} Zusage"
+msgstr[1] "{} Zusagen"
+
+#: crates/app/src/detail.rs:250
+#, rust-format
+msgid "{} declined"
+msgid_plural "{} declined"
+msgstr[0] "{} Absage"
+msgstr[1] "{} Absagen"
+
+#: crates/app/src/detail.rs:258
+msgid "accepted"
+msgstr "zugesagt"
+
+#: crates/app/src/detail.rs:259
+msgid "declined"
+msgstr "abgesagt"
+
+#: crates/app/src/detail.rs:260
+msgid "maybe"
+msgstr "vielleicht"
+
+#: crates/app/src/detail.rs:261
+msgid "no answer yet"
+msgstr "noch offen"
+
+#: crates/app/src/detail.rs:292
+#, rust-format
+msgid "From “{}” · can only be read"
+msgstr "Aus „{}“ · nur lesen"
+
+#: crates/app/src/detail.rs:307
+msgid "Delete (Del)"
+msgstr "Löschen (Entf)"
+
+#: crates/app/src/detail.rs:312
+msgid "Duplicate (Ctrl+D)"
+msgstr "Duplizieren (Strg+D)"
+
+#: crates/app/src/detail.rs:327
+msgid "Invite"
+msgstr "Einladen"
+
+#: crates/app/src/detail.rs:328
+msgid "Send the invitation again"
+msgstr "Einladung erneut senden"
+
+#: crates/app/src/detail.rs:340 crates/app/src/ops.rs:404
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: crates/app/src/detail.rs:346 crates/app/src/ops.rs:396
+msgid "Copy to my calendar"
+msgstr "In meinen Kalender kopieren"
+
+#: crates/app/src/detail.rs:392 crates/app/src/detail.rs:442
+#, rust-format
+msgid "{} of {} done"
+msgstr "{} von {} erledigt"
+
+#: crates/app/src/detail.rs:413
+msgid "Done"
+msgstr "Fertig"
+
+#: crates/app/src/detail.rs:458 crates/app/src/editor.rs:625
+msgid "Remove subtask"
+msgstr "Unteraufgabe entfernen"
+
+#: crates/app/src/detail.rs:480
+msgid "Add subtask"
+msgstr "Unteraufgabe hinzufügen"
+
+#: crates/app/src/editor.rs:271 crates/app/src/ops.rs:26
+#: crates/app/src/ops.rs:329 crates/app/src/prefs.rs:418
+#: crates/app/src/prefs.rs:671 crates/app/src/prefs.rs:823
+#: crates/app/src/share.rs:43 crates/app/src/share.rs:463
+#: crates/app/src/subscriptions.rs:153 crates/app/src/subscriptions.rs:251
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: crates/app/src/editor.rs:361
+msgid "Time"
+msgstr "Uhrzeit"
+
+#: crates/app/src/editor.rs:387 crates/app/src/prefs.rs:145
+msgid "None"
+msgstr "Keine"
+
+#: crates/app/src/editor.rs:418
+#, rust-format
+msgid "Edit {}"
+msgstr "{} bearbeiten"
+
+#: crates/app/src/editor.rs:421
+msgid "New meeting"
+msgstr "Neues Meeting"
+
+#: crates/app/src/editor.rs:422
+msgid "New task"
+msgstr "Neue Aufgabe"
+
+#: crates/app/src/editor.rs:423
+msgid "New vacation"
+msgstr "Neuer Urlaub"
+
+#: crates/app/src/editor.rs:424
+msgid "New birthday"
+msgstr "Neuer Geburtstag"
+
+#: crates/app/src/editor.rs:425
+#, rust-format
+msgid "New: {}"
+msgstr "Neu: {}"
+
+#: crates/app/src/editor.rs:426
+msgid "New appointment"
+msgstr "Neuer Termin"
+
+#: crates/app/src/editor.rs:432 crates/app/src/prefs.rs:672
+#: crates/app/src/prefs.rs:824
+msgid "Save"
+msgstr "Speichern"
+
+#: crates/app/src/editor.rs:434
+msgid "Add and invite"
+msgstr "Hinzufügen und einladen"
+
+#: crates/app/src/editor.rs:436 crates/app/src/prefs.rs:672
+#: crates/app/src/prefs.rs:824
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: crates/app/src/editor.rs:514
+msgid "Use routine:"
+msgstr "Routine verwenden:"
+
+#: crates/app/src/editor.rs:551 crates/app/src/prefs.rs:568
+#: crates/app/src/prefs.rs:786
+msgid "Name"
+msgstr "Name"
+
+#: crates/app/src/editor.rs:551
+msgid "Title"
+msgstr "Titel"
+
+#: crates/app/src/editor.rs:577
+msgid "All-day"
+msgstr "Ganztägig"
+
+#: crates/app/src/editor.rs:600
+msgid "First day"
+msgstr "Erster Tag"
+
+#: crates/app/src/editor.rs:601
+msgid "Last day"
+msgstr "Letzter Tag"
+
+#: crates/app/src/editor.rs:603
+msgid "Start"
+msgstr "Beginn"
+
+#: crates/app/src/editor.rs:604
+msgid "End"
+msgstr "Ende"
+
+#: crates/app/src/editor.rs:612
+msgid "Subtasks"
+msgstr "Unteraufgaben"
+
+#: crates/app/src/editor.rs:614
+msgid "Can stay empty – subtasks can also be added later in the calendar."
+msgstr "Kann leer bleiben – Unteraufgaben lassen sich auch später im Kalender ergänzen."
+
+#: crates/app/src/editor.rs:636
+msgid "Add subtask (Enter)"
+msgstr "Unteraufgabe hinzufügen (Enter)"
+
+#: crates/app/src/editor.rs:657
+#, rust-format
+msgid "Update routine “{}”"
+msgstr "Routine „{}“ aktualisieren"
+
+#: crates/app/src/editor.rs:658 crates/app/src/ops.rs:415
+msgid "Save as routine"
+msgstr "Als Routine speichern"
+
+#: crates/app/src/editor.rs:662
+msgid "Remember title, duration and subtasks as a template"
+msgstr "Titel, Dauer und Unteraufgaben als Vorlage merken"
+
+#: crates/app/src/editor.rs:677
+msgid "Participants"
+msgstr "Teilnehmer"
+
+#: crates/app/src/editor.rs:679
+msgid "They get an invitation by e-mail and can accept or decline in their own calendar."
+msgstr "Sie bekommen eine Einladung per E-Mail und können in ihrem eigenen Kalender zu- oder absagen."
+
+#: crates/app/src/editor.rs:690 crates/app/src/subscriptions.rs:251
+msgid "Remove"
+msgstr "Entfernen"
+
+#: crates/app/src/editor.rs:701
+msgid "Add participant: name and e-mail address"
+msgstr "Teilnehmer hinzufügen: Name und E-Mail-Adresse"
+
+#: crates/app/src/editor.rs:722 crates/app/src/prefs.rs:128
+msgid "No reminder"
+msgstr "Keine Erinnerung"
+
+#: crates/app/src/editor.rs:732
+msgid "Reminder"
+msgstr "Erinnerung"
+
+#: crates/app/src/editor.rs:742
+msgid "Travel time"
+msgstr "Reisezeit"
+
+#: crates/app/src/editor.rs:747
+msgid "Kept free before the entry"
+msgstr "Wird vor dem Eintrag freigehalten"
+
+#: crates/app/src/editor.rs:750
+msgid "Buffer after"
+msgstr "Puffer danach"
+
+#: crates/app/src/editor.rs:755
+msgid "Time to breathe before the next entry"
+msgstr "Zeit zum Durchatmen vor dem nächsten Eintrag"
+
+#: crates/app/src/editor.rs:769
+msgid "Place or video link"
+msgstr "Ort oder Videolink"
+
+#: crates/app/src/editor.rs:771
+msgid "Place"
+msgstr "Ort"
+
+#: crates/app/src/editor.rs:782
+msgid "Notes"
+msgstr "Notizen"
+
+#: crates/app/src/editor.rs:806
+#, rust-format
+msgid "Delete {}"
+msgstr "{} löschen"
+
+#: crates/app/src/editor.rs:856
+#, rust-format
+msgid "{} day of vacation"
+msgid_plural "{} days of vacation"
+msgstr[0] "{} Urlaubstag"
+msgstr[1] "{} Urlaubstage"
+
+#: crates/app/src/editor.rs:861
+#, rust-format
+msgid "Vacation days: {}"
+msgstr "Urlaubstage: {}"
+
+#: crates/app/src/editor.rs:872
+#, rust-format
+msgid "{} of {} days left afterwards"
+msgstr "danach {} von {} Tagen übrig"
+
+#: crates/app/src/editor.rs:883
+msgid "Scope"
+msgstr "Umfang"
+
+#: crates/app/src/editor.rs:884
+msgid "Whole days"
+msgstr "Ganze Tage"
+
+#: crates/app/src/editor.rs:884
+msgid "Half day"
+msgstr "Halber Tag"
+
+#: crates/app/src/editor.rs:901 crates/app/src/editor.rs:980
+msgid "Day"
+msgstr "Tag"
+
+#: crates/app/src/editor.rs:905
+msgid "First day of vacation"
+msgstr "Erster Urlaubstag"
+
+#: crates/app/src/editor.rs:906
+msgid "Last day of vacation"
+msgstr "Letzter Urlaubstag"
+
+#: crates/app/src/editor.rs:916
+msgid "Saturday counts as vacation day"
+msgstr "Samstag zählt als Urlaubstag"
+
+#: crates/app/src/editor.rs:917
+msgid "Sunday counts as vacation day"
+msgstr "Sonntag zählt als Urlaubstag"
+
+#: crates/app/src/editor.rs:960 crates/app/src/editor.rs:1282
+msgid "This date does not exist"
+msgstr "Dieses Datum gibt es nicht"
+
+#: crates/app/src/editor.rs:961
+msgid "Without the year of birth, the age is not shown"
+msgstr "Ohne Geburtsjahr wird kein Alter angezeigt"
+
+#: crates/app/src/editor.rs:965
+#, rust-format
+msgid "Turns {} on {}"
+msgstr "Wird {} am {}"
+
+#: crates/app/src/editor.rs:992 crates/app/src/month.rs:321
+#: crates/app/src/prefs.rs:105 crates/app/src/prefs.rs:883
+#: crates/app/src/window.rs:168
+msgid "Month"
+msgstr "Monat"
+
+#: crates/app/src/editor.rs:1001
+msgid "Year of birth (optional)"
+msgstr "Geburtsjahr (optional)"
+
+#: crates/app/src/editor.rs:1104 crates/app/src/editor.rs:1209
+msgid "Never"
+msgstr "Nie"
+
+#: crates/app/src/editor.rs:1122
+msgid "Repeat"
+msgstr "Wiederholen"
+
+#: crates/app/src/editor.rs:1173
+msgid "On"
+msgstr "An"
+
+#: crates/app/src/editor.rs:1208
+msgid "Ends"
+msgstr "Endet"
+
+#: crates/app/src/editor.rs:1209
+msgid "On a date"
+msgstr "An einem Datum"
+
+#: crates/app/src/editor.rs:1209
+msgid "After a number of times"
+msgstr "Nach einer Anzahl"
+
+#: crates/app/src/editor.rs:1229
+msgid "Last date"
+msgstr "Letztes Datum"
+
+#: crates/app/src/editor.rs:1240
+msgid "Number of times"
+msgstr "Anzahl"
+
+#: crates/app/src/editor.rs:1263
+msgid "Please enter a title"
+msgstr "Bitte einen Titel eingeben"
+
+#: crates/app/src/editor.rs:1408 crates/app/src/ops.rs:144
+#: crates/app/src/ops.rs:253
+#, rust-format
+msgid "“{}” is part of a series."
+msgstr "„{}“ gehört zu einer Serie."
+
+#: crates/app/src/editor.rs:1412
+msgid "Change recurring entry?"
+msgstr "Serieneintrag ändern?"
+
+#: crates/app/src/editor.rs:1453 crates/app/src/editor.rs:1502
+msgid "Saved"
+msgstr "Gespeichert"
+
+#: crates/app/src/editor.rs:1455
+msgid "Added"
+msgstr "Hinzugefügt"
+
+#: crates/app/src/fmt.rs:11
+msgid "Mon"
+msgstr "Mo"
+
+#: crates/app/src/fmt.rs:12
+msgid "Tue"
+msgstr "Di"
+
+#: crates/app/src/fmt.rs:13
+msgid "Wed"
+msgstr "Mi"
+
+#: crates/app/src/fmt.rs:14
+msgid "Thu"
+msgstr "Do"
+
+#: crates/app/src/fmt.rs:15
+msgid "Fri"
+msgstr "Fr"
+
+#: crates/app/src/fmt.rs:16
+msgid "Sat"
+msgstr "Sa"
+
+#: crates/app/src/fmt.rs:17
+msgid "Sun"
+msgstr "So"
+
+#: crates/app/src/fmt.rs:23
+msgid "Monday"
+msgstr "Montag"
+
+#: crates/app/src/fmt.rs:24
+msgid "Tuesday"
+msgstr "Dienstag"
+
+#: crates/app/src/fmt.rs:25
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+#: crates/app/src/fmt.rs:26
+msgid "Thursday"
+msgstr "Donnerstag"
+
+#: crates/app/src/fmt.rs:27
+msgid "Friday"
+msgstr "Freitag"
+
+#: crates/app/src/fmt.rs:28
+msgid "Saturday"
+msgstr "Samstag"
+
+#: crates/app/src/fmt.rs:29
+msgid "Sunday"
+msgstr "Sonntag"
+
+#: crates/app/src/fmt.rs:35
+msgid "January"
+msgstr "Januar"
+
+#: crates/app/src/fmt.rs:36
+msgid "February"
+msgstr "Februar"
+
+#: crates/app/src/fmt.rs:37
+msgid "March"
+msgstr "März"
+
+#: crates/app/src/fmt.rs:38
+msgid "April"
+msgstr "April"
+
+#: crates/app/src/fmt.rs:39
+msgid "May"
+msgstr "Mai"
+
+#: crates/app/src/fmt.rs:40
+msgid "June"
+msgstr "Juni"
+
+#: crates/app/src/fmt.rs:41
+msgid "July"
+msgstr "Juli"
+
+#: crates/app/src/fmt.rs:42
+msgid "August"
+msgstr "August"
+
+#: crates/app/src/fmt.rs:43
+msgid "September"
+msgstr "September"
+
+#: crates/app/src/fmt.rs:44
+msgid "October"
+msgstr "Oktober"
+
+#: crates/app/src/fmt.rs:45
+msgid "November"
+msgstr "November"
+
+#: crates/app/src/fmt.rs:46
+msgid "December"
+msgstr "Dezember"
+
+#: crates/app/src/fmt.rs:66
+#, rust-format
+msgctxt "short date: weekday, day, month"
+msgid "{}, {} {}"
+msgstr "{}, {}. {}"
+
+#: crates/app/src/fmt.rs:79
+#, rust-format
+msgctxt "date: weekday, day, month"
+msgid "{}, {} {}"
+msgstr "{}, {}. {}"
+
+#: crates/app/src/fmt.rs:90
+msgctxt "month abbreviation"
+msgid "Jan"
+msgstr "Jan."
+
+#: crates/app/src/fmt.rs:91
+msgctxt "month abbreviation"
+msgid "Feb"
+msgstr "Feb."
+
+#: crates/app/src/fmt.rs:92
+msgctxt "month abbreviation"
+msgid "Mar"
+msgstr "März"
+
+#: crates/app/src/fmt.rs:93
+msgctxt "month abbreviation"
+msgid "Apr"
+msgstr "Apr."
+
+#: crates/app/src/fmt.rs:94
+msgctxt "month abbreviation"
+msgid "May"
+msgstr "Mai"
+
+#: crates/app/src/fmt.rs:95
+msgctxt "month abbreviation"
+msgid "Jun"
+msgstr "Juni"
+
+#: crates/app/src/fmt.rs:96
+msgctxt "month abbreviation"
+msgid "Jul"
+msgstr "Juli"
+
+#: crates/app/src/fmt.rs:97
+msgctxt "month abbreviation"
+msgid "Aug"
+msgstr "Aug."
+
+#: crates/app/src/fmt.rs:98
+msgctxt "month abbreviation"
+msgid "Sep"
+msgstr "Sept."
+
+#: crates/app/src/fmt.rs:99
+msgctxt "month abbreviation"
+msgid "Oct"
+msgstr "Okt."
+
+#: crates/app/src/fmt.rs:100
+msgctxt "month abbreviation"
+msgid "Nov"
+msgstr "Nov."
+
+#: crates/app/src/fmt.rs:101
+msgctxt "month abbreviation"
+msgid "Dec"
+msgstr "Dez."
+
+#: crates/app/src/fmt.rs:114
+#, rust-format
+msgid "{} – {} {} {}"
+msgstr "{}. – {}. {} {}"
+
+#: crates/app/src/fmt.rs:124
+#, rust-format
+msgid "{} {} – {} {} {}"
+msgstr "{}. {} – {}. {} {}"
+
+#: crates/app/src/fmt.rs:138
+#, rust-format
+msgid "{} hour"
+msgid_plural "{} hours"
+msgstr[0] "{} Std."
+msgstr[1] "{} Std."
+
+#: crates/app/src/fmt.rs:141
+#, rust-format
+msgid "{} h {} min"
+msgstr "{} Std. {} Min."
+
+#: crates/app/src/fmt.rs:145
+#, rust-format
+msgid "{} min"
+msgstr "{} Min."
+
+#: crates/app/src/month.rs:130
+msgid "Wk"
+msgstr "KW"
+
+#: crates/app/src/month.rs:278
+#, rust-format
+msgid "+ {} more"
+msgid_plural "+ {} more"
+msgstr[0] "+ {} weiterer"
+msgstr[1] "+ {} weitere"
+
+#: crates/app/src/notify.rs:61
+#, rust-format
+msgid "Time to leave: {} · starts {}"
+msgstr "Losfahren: {} · Beginn {}"
+
+#: crates/app/src/ops.rs:27
+msgid "This and all following"
+msgstr "Diesen und alle folgenden"
+
+#: crates/app/src/ops.rs:28
+msgid "Only this one"
+msgstr "Nur diesen"
+
+#: crates/app/src/ops.rs:87
+#, rust-format
+msgid "Moved to {}"
+msgstr "Verschoben auf {}"
+
+#: crates/app/src/ops.rs:90
+#, rust-format
+msgid "Moved to {}, {}"
+msgstr "Verschoben auf {}, {}"
+
+#: crates/app/src/ops.rs:122
+#, rust-format
+msgid "Copy on {}"
+msgstr "Kopie am {}"
+
+#: crates/app/src/ops.rs:143
+msgid "Move recurring entry?"
+msgstr "Serieneintrag verschieben?"
+
+#: crates/app/src/ops.rs:197
+msgid "Inform"
+msgstr "Informieren"
+
+#: crates/app/src/ops.rs:226
+msgid "Subscribed calendars can only be read"
+msgstr "Abonnierte Kalender kann man nur lesen"
+
+#: crates/app/src/ops.rs:256
+msgid "Delete recurring entry?"
+msgstr "Serieneintrag löschen?"
+
+#: crates/app/src/ops.rs:286
+#, rust-format
+msgid "“{}” deleted"
+msgstr "„{}“ gelöscht"
+
+#: crates/app/src/ops.rs:309
+#, rust-format
+msgid "Saved as routine “{}”"
+msgstr "Als Routine „{}“ gespeichert"
+
+#: crates/app/src/ops.rs:327 crates/app/src/ops.rs:413
+msgid "Move to …"
+msgstr "Verschieben nach …"
+
+#: crates/app/src/ops.rs:329
+msgid "Move"
+msgstr "Verschieben"
+
+#: crates/app/src/ops.rs:395 crates/app/src/ops.rs:403
+msgid "Open"
+msgstr "Öffnen"
+
+#: crates/app/src/ops.rs:397 crates/app/src/ops.rs:417
+msgid "Save as file …"
+msgstr "Als Datei speichern …"
+
+#: crates/app/src/ops.rs:407
+msgid "Duplicate"
+msgstr "Duplizieren"
+
+#: crates/app/src/ops.rs:409
+msgid "One day later"
+msgstr "Einen Tag später"
+
+#: crates/app/src/ops.rs:410
+msgid "One day earlier"
+msgstr "Einen Tag früher"
+
+#: crates/app/src/ops.rs:411
+msgid "One week later"
+msgstr "Eine Woche später"
+
+#: crates/app/src/ops.rs:412
+msgid "Pick a date …"
+msgstr "Datum wählen …"
+
+#: crates/app/src/ops.rs:420 crates/app/src/prefs.rs:667
+#: crates/app/src/prefs.rs:819
+msgid "Delete"
+msgstr "Löschen"
+
+#: crates/app/src/prefs.rs:64 crates/app/src/prefs.rs:484
+#: crates/app/src/window.rs:76
+msgid "Kinds"
+msgstr "Arten"
+
+#: crates/app/src/prefs.rs:69 crates/app/src/prefs.rs:724
+msgid "Routines"
+msgstr "Routinen"
+
+#: crates/app/src/prefs.rs:84 crates/app/src/prefs.rs:899
+msgid "General"
+msgstr "Allgemein"
+
+#: crates/app/src/prefs.rs:91
+msgid "Display"
+msgstr "Darstellung"
+
+#: crates/app/src/prefs.rs:94
+msgid "Show week numbers"
+msgstr "Kalenderwochen anzeigen"
+
+#: crates/app/src/prefs.rs:95
+msgid "In the month and the small calendar"
+msgstr "Im Monat und im kleinen Monatskalender"
+
+#: crates/app/src/prefs.rs:99
+msgid "Fade the past and finished tasks"
+msgstr "Vergangenes und Erledigtes abblenden"
+
+#: crates/app/src/prefs.rs:100
+msgid "Past entries and finished tasks step back"
+msgstr "Vergangene Termine und fertige Aufgaben treten zurück"
+
+#: crates/app/src/prefs.rs:104
+msgid "View at start"
+msgstr "Ansicht beim Start"
+
+#: crates/app/src/prefs.rs:105 crates/app/src/prefs.rs:882
+#: crates/app/src/week.rs:784 crates/app/src/window.rs:164
+msgid "Week"
+msgstr "Woche"
+
+#: crates/app/src/prefs.rs:114
+msgid "New entries"
+msgstr "Neue Einträge"
+
+#: crates/app/src/prefs.rs:118
+msgid "Default length"
+msgstr "Standarddauer"
+
+#: crates/app/src/prefs.rs:134
+msgid "Default reminder"
+msgstr "Standarderinnerung"
+
+#: crates/app/src/prefs.rs:152
+msgid "Buffer after entries"
+msgstr "Puffer nach Einträgen"
+
+#: crates/app/src/prefs.rs:165 crates/app/src/state.rs:397
+msgid "Vacation"
+msgstr "Urlaub"
+
+#: crates/app/src/prefs.rs:168
+msgid "Vacation days per year"
+msgstr "Urlaubstage pro Jahr"
+
+#: crates/app/src/prefs.rs:169
+msgid "Shows how many days are left; 0 = don't count"
+msgstr "Zeigt, wie viele Tage übrig sind; 0 = nicht zählen"
+
+#: crates/app/src/prefs.rs:180
+msgid "Holidays"
+msgstr "Feiertage"
+
+#: crates/app/src/prefs.rs:182
+msgid "No holidays"
+msgstr "Keine Feiertage"
+
+#: crates/app/src/prefs.rs:182
+msgid "Germany, nationwide only"
+msgstr "Deutschland, nur bundesweite"
+
+#: crates/app/src/prefs.rs:197
+msgid "Federal state"
+msgstr "Bundesland"
+
+#: crates/app/src/prefs.rs:202
+msgid "Invitations"
+msgstr "Einladungen"
+
+#: crates/app/src/prefs.rs:204
+msgid "Sender of invitations; answers to this address are recognised."
+msgstr "Absender von Einladungen; Antworten an diese Adresse werden erkannt."
+
+#: crates/app/src/prefs.rs:208 crates/app/src/share.rs:36
+msgid "Your name"
+msgstr "Dein Name"
+
+#: crates/app/src/prefs.rs:212 crates/app/src/share.rs:27
+#: crates/app/src/share.rs:38
+msgid "Your e-mail address"
+msgstr "Deine E-Mail-Adresse"
+
+#: crates/app/src/prefs.rs:219
+msgid "System"
+msgstr "System"
+
+#: crates/app/src/prefs.rs:221
+msgid "Run in the background"
+msgstr "Im Hintergrund laufen"
+
+#: crates/app/src/prefs.rs:223
+msgid "Reminders also arrive when the window is closed or not yet opened"
+msgstr "Erinnerungen kommen auch, wenn das Fenster geschlossen oder noch nicht geöffnet ist"
+
+#: crates/app/src/prefs.rs:228
+msgid "Language"
+msgstr "Sprache"
+
+#: crates/app/src/prefs.rs:229
+msgid "As in the system"
+msgstr "Wie im System"
+
+#: crates/app/src/prefs.rs:236
+msgid "Takes effect after a restart"
+msgstr "Gilt nach einem Neustart"
+
+#: crates/app/src/prefs.rs:314
+msgid "Backup"
+msgstr "Datensicherung"
+
+#: crates/app/src/prefs.rs:316
+msgid "Your calendar lives only on this computer. A folder in your Nextcloud or Dropbox, or on a USB drive, keeps the copies safe even if the computer breaks."
+msgstr "Dein Kalender liegt nur auf diesem Computer. Ein Ordner in Nextcloud oder Dropbox oder auf einem USB-Stick bewahrt die Kopien auch auf, wenn der Computer kaputtgeht."
+
+#: crates/app/src/prefs.rs:320
+msgid "Back up automatically"
+msgstr "Automatisch sichern"
+
+#: crates/app/src/prefs.rs:321
+msgid "Once a day; the last ten copies are kept"
+msgstr "Einmal am Tag; die letzten zehn Kopien bleiben"
+
+#: crates/app/src/prefs.rs:328
+msgid "Folder"
+msgstr "Ordner"
+
+#: crates/app/src/prefs.rs:332
+msgid "Change …"
+msgstr "Ändern …"
+
+#: crates/app/src/prefs.rs:336
+msgid "Back up now"
+msgstr "Jetzt sichern"
+
+#: crates/app/src/prefs.rs:337
+msgid "Restore from backup …"
+msgstr "Aus Sicherung wiederherstellen …"
+
+#: crates/app/src/prefs.rs:352
+msgid "Folder for backups"
+msgstr "Ordner für Sicherungen"
+
+#: crates/app/src/prefs.rs:374
+#, rust-format
+msgid "Backed up as {}"
+msgstr "Gesichert als {}"
+
+#: crates/app/src/prefs.rs:392
+msgid "Calendar backups"
+msgstr "Kalender-Sicherungen"
+
+#: crates/app/src/prefs.rs:398
+msgid "Restore from backup"
+msgstr "Aus Sicherung wiederherstellen"
+
+#: crates/app/src/prefs.rs:412
+msgid "Restore backup?"
+msgstr "Sicherung wiederherstellen?"
+
+#: crates/app/src/prefs.rs:414
+#, rust-format
+msgid "All current entries, kinds, routines and settings are replaced by the content of “{}”. Before that, the current state is saved as a backup too."
+msgstr "Alle jetzigen Einträge, Arten, Routinen und Einstellungen werden durch den Inhalt von „{}“ ersetzt. Vorher wird der jetzige Stand ebenfalls gesichert."
+
+#: crates/app/src/prefs.rs:418
+msgid "Restore"
+msgstr "Wiederherstellen"
+
+#: crates/app/src/prefs.rs:434
+msgid "Backup restored"
+msgstr "Sicherung wiederhergestellt"
+
+#: crates/app/src/prefs.rs:486
+msgid "Every entry has one kind. Its colour and symbol show what kind of entry something is."
+msgstr "Jeder Eintrag hat eine Art. Farbe und Symbol zeigen, was für ein Eintrag es ist."
+
+#: crates/app/src/prefs.rs:499 crates/app/src/window.rs:737
+msgid "Subscribed"
+msgstr "Abonniert"
+
+#: crates/app/src/prefs.rs:500
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: crates/app/src/prefs.rs:501
+msgid "Default"
+msgstr "Vorgabe"
+
+#: crates/app/src/prefs.rs:502
+msgid "Own kind"
+msgstr "Eigene Art"
+
+#: crates/app/src/prefs.rs:508 crates/app/src/subscriptions.rs:232
+#, rust-format
+msgid "{} entry"
+msgid_plural "{} entries"
+msgstr[0] "{} Eintrag"
+msgstr[1] "{} Einträge"
+
+#: crates/app/src/prefs.rs:520
+msgid "Add kind …"
+msgstr "Art hinzufügen …"
+
+#: crates/app/src/prefs.rs:528
+msgid "Transfer entries"
+msgstr "Einträge übertragen"
+
+#: crates/app/src/prefs.rs:530
+msgid "Import from file …"
+msgstr "Aus Datei importieren …"
+
+#: crates/app/src/prefs.rs:531
+msgid "Export as file …"
+msgstr "Als Datei exportieren …"
+
+#: crates/app/src/prefs.rs:556
+msgid "Change kind"
+msgstr "Art ändern"
+
+#: crates/app/src/prefs.rs:558
+msgid "New kind"
+msgstr "Neue Art"
+
+#: crates/app/src/prefs.rs:578
+msgid "Sport"
+msgstr "Sport"
+
+#: crates/app/src/prefs.rs:590
+msgid "Colour"
+msgstr "Farbe"
+
+#: crates/app/src/prefs.rs:623
+msgid "Symbol"
+msgstr "Symbol"
+
+#: crates/app/src/prefs.rs:654
+msgid "Preview"
+msgstr "Vorschau"
+
+#: crates/app/src/prefs.rs:689 crates/app/src/prefs.rs:844
+msgid "Please enter a name"
+msgstr "Bitte einen Namen eingeben"
+
+#: crates/app/src/prefs.rs:704
+#, rust-format
+msgid "Kind “{}” deleted; its entries are appointments now"
+msgstr "Art „{}“ gelöscht; ihre Einträge sind jetzt Termine"
+
+#: crates/app/src/prefs.rs:725
+msgid "A routine is a template for tasks. It can also be made in the calendar: right click on a task → “Save as routine”. Changes only apply to new tasks."
+msgstr "Eine Routine ist eine Vorlage für Aufgaben. Sie entsteht auch direkt im Kalender: Rechtsklick auf eine Aufgabe → „Als Routine speichern“. Änderungen gelten nur für neue Aufgaben."
+
+#: crates/app/src/prefs.rs:731
+msgid "No routines yet"
+msgstr "Noch keine Routinen"
+
+#: crates/app/src/prefs.rs:742 crates/app/src/window.rs:959
+#, rust-format
+msgid "{} subtask"
+msgid_plural "{} subtasks"
+msgstr[0] "{} Unteraufgabe"
+msgstr[1] "{} Unteraufgaben"
+
+#: crates/app/src/prefs.rs:756
+msgid "Add routine …"
+msgstr "Routine hinzufügen …"
+
+#: crates/app/src/prefs.rs:774
+msgid "Change routine"
+msgstr "Routine ändern"
+
+#: crates/app/src/prefs.rs:776
+msgid "New routine"
+msgstr "Neue Routine"
+
+#: crates/app/src/prefs.rs:790
+msgid "Length in minutes"
+msgstr "Dauer in Minuten"
+
+#: crates/app/src/prefs.rs:797
+msgid "Subtasks, one per line"
+msgstr "Unteraufgaben, eine pro Zeile"
+
+#: crates/app/src/prefs.rs:873 crates/app/src/prefs.rs:903
+msgid "Keyboard shortcuts"
+msgstr "Tastenkürzel"
+
+#: crates/app/src/prefs.rs:880
+msgid "View"
+msgstr "Ansicht"
+
+#: crates/app/src/prefs.rs:884 crates/app/src/window.rs:137
+msgid "Today"
+msgstr "Heute"
+
+#: crates/app/src/prefs.rs:885
+msgid "Back"
+msgstr "Zurück"
+
+#: crates/app/src/prefs.rs:886
+msgid "Forward"
+msgstr "Weiter"
+
+#: crates/app/src/prefs.rs:887
+msgid "Sidebar"
+msgstr "Seitenleiste"
+
+#: crates/app/src/prefs.rs:891
+msgid "Entries"
+msgstr "Einträge"
+
+#: crates/app/src/prefs.rs:893
+msgid "New entry"
+msgstr "Neuer Eintrag"
+
+#: crates/app/src/prefs.rs:894 crates/app/src/window.rs:641
+msgid "Undo"
+msgstr "Rückgängig"
+
+#: crates/app/src/prefs.rs:895
+msgid "Copy while dragging"
+msgstr "Beim Ziehen kopieren"
+
+#: crates/app/src/prefs.rs:901
+msgid "Search"
+msgstr "Suchen"
+
+#: crates/app/src/prefs.rs:902
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: crates/app/src/prefs.rs:904
+msgid "Quit"
+msgstr "Beenden"
+
+#: crates/app/src/share.rs:29
+msgid "Invitations are sent from this address, and answers to it are recognised. You can change it later in the settings."
+msgstr "Einladungen gehen von dieser Adresse aus, Antworten an sie werden erkannt. Du kannst sie später in den Einstellungen ändern."
+
+#: crates/app/src/share.rs:43
+msgid "Continue"
+msgstr "Weiter"
+
+#: crates/app/src/share.rs:51
+msgid "Please enter a valid e-mail address"
+msgstr "Bitte eine gültige E-Mail-Adresse eingeben"
+
+#: crates/app/src/share.rs:131
+#, rust-format
+msgid "No mail app found. The file is here: {}"
+msgstr "Keine Mail-App gefunden. Die Datei liegt hier: {}"
+
+#: crates/app/src/share.rs:194
+#, rust-format
+msgid "Invitation: {} · {}"
+msgstr "Einladung: {} · {}"
+
+#: crates/app/src/share.rs:196
+#, rust-format
+msgid "Hello,\n\nI would like to invite you to “{}”:\n\n{}"
+msgstr "Hallo,\n\nich lade dich zu „{}“ ein:\n\n{}"
+
+#: crates/app/src/share.rs:204
+msgid "You can accept or decline directly in your calendar or with the attachment."
+msgstr "Zusagen oder absagen kannst du direkt in deinem Kalender oder über den Anhang."
+
+#: crates/app/src/share.rs:205
+msgid "Best regards"
+msgstr "Viele Grüße"
+
+#: crates/app/src/share.rs:214
+msgid "Invitation prepared in your mail app"
+msgstr "Einladung in der Mail-App vorbereitet"
+
+#: crates/app/src/share.rs:252
+msgid "Save entry as file"
+msgstr "Eintrag als Datei speichern"
+
+#: crates/app/src/share.rs:263
+#, rust-format
+msgid "Saved as {}"
+msgstr "Gespeichert als {}"
+
+#: crates/app/src/share.rs:291
+msgid "Export calendar"
+msgstr "Kalender exportieren"
+
+#: crates/app/src/share.rs:301
+msgid "Calendar exported"
+msgstr "Kalender exportiert"
+
+#: crates/app/src/share.rs:310
+msgid "Calendar files"
+msgstr "Kalenderdateien"
+
+#: crates/app/src/share.rs:316
+msgid "Import calendar file"
+msgstr "Kalenderdatei importieren"
+
+#: crates/app/src/share.rs:413
+#, rust-format
+msgid "{} entry imported"
+msgid_plural "{} entries imported"
+msgstr[0] "{} Eintrag importiert"
+msgstr[1] "{} Einträge importiert"
+
+#: crates/app/src/share.rs:433
+#, rust-format
+msgid "Invitation from {}"
+msgstr "Einladung von {}"
+
+#: crates/app/src/share.rs:434
+msgid "Updated invitation"
+msgstr "Geänderte Einladung"
+
+#: crates/app/src/share.rs:435
+msgid "Updated entry"
+msgstr "Geänderter Eintrag"
+
+#: crates/app/src/share.rs:436
+msgid "Add entry?"
+msgstr "Eintrag übernehmen?"
+
+#: crates/app/src/share.rs:448
+#, rust-format
+msgid "“{}”"
+msgstr "„{}“"
+
+#: crates/app/src/share.rs:455
+msgid "Later"
+msgstr "Später"
+
+#: crates/app/src/share.rs:456
+msgid "Decline"
+msgstr "Absagen"
+
+#: crates/app/src/share.rs:457
+msgid "Accept"
+msgstr "Zusagen"
+
+#: crates/app/src/share.rs:463
+msgid "Add to calendar"
+msgstr "In den Kalender übernehmen"
+
+#: crates/app/src/share.rs:481
+msgid "Added to the calendar"
+msgstr "In den Kalender übernommen"
+
+#: crates/app/src/share.rs:491
+msgid "Accepted and added"
+msgstr "Zugesagt und übernommen"
+
+#: crates/app/src/share.rs:545
+#, rust-format
+msgid "Accepted: {}"
+msgstr "Zusage: {}"
+
+#: crates/app/src/share.rs:546
+#, rust-format
+msgid "I accept: “{}” – {}"
+msgstr "Ich sage zu: „{}“ – {}"
+
+#: crates/app/src/share.rs:550
+#, rust-format
+msgid "Declined: {}"
+msgstr "Absage: {}"
+
+#: crates/app/src/share.rs:552
+#, rust-format
+msgid "Unfortunately I can't make it: “{}” – {}"
+msgstr "Leider kann ich nicht: „{}“ – {}"
+
+#: crates/app/src/share.rs:563
+msgid "Answer prepared in your mail app"
+msgstr "Antwort in der Mail-App vorbereitet"
+
+#: crates/app/src/share.rs:578
+msgid "This answer belongs to an entry that is not in the calendar."
+msgstr "Diese Antwort gehört zu einem Eintrag, der nicht im Kalender ist."
+
+#: crates/app/src/share.rs:586
+#, rust-format
+msgid "{} has accepted"
+msgstr "{} hat zugesagt"
+
+#: crates/app/src/share.rs:587
+#, rust-format
+msgid "{} has declined"
+msgstr "{} hat abgesagt"
+
+#: crates/app/src/share.rs:588
+#, rust-format
+msgid "{} might come"
+msgstr "{} kommt vielleicht"
+
+#: crates/app/src/share.rs:589
+#, rust-format
+msgid "{} has not decided yet"
+msgstr "{} hat sich noch nicht entschieden"
+
+#: crates/app/src/share.rs:592
+#, rust-format
+msgid "{} Answer to your invitation to “{}”, {}"
+msgstr "{} Antwort auf deine Einladung zu „{}“, {}"
+
+#: crates/app/src/share.rs:596
+msgid "Ignore"
+msgstr "Ignorieren"
+
+#: crates/app/src/share.rs:596
+msgid "Apply"
+msgstr "Übernehmen"
+
+#: crates/app/src/share.rs:616
+msgid "Answer applied"
+msgstr "Antwort übernommen"
+
+#: crates/app/src/share.rs:634
+msgid "Entry cancelled"
+msgstr "Eintrag abgesagt"
+
+#: crates/app/src/share.rs:636
+#, rust-format
+msgid "“{}” was cancelled by the organizer."
+msgstr "„{}“ wurde vom Einladenden abgesagt."
+
+#: crates/app/src/share.rs:641
+msgid "Keep"
+msgstr "Behalten"
+
+#: crates/app/src/share.rs:642
+msgid "Remove from calendar"
+msgstr "Aus dem Kalender entfernen"
+
+#: crates/app/src/share.rs:651
+msgid "Removed"
+msgstr "Entfernt"
+
+#: crates/app/src/state.rs:394
+msgid "Appointment"
+msgstr "Termin"
+
+#: crates/app/src/state.rs:395
+msgid "Meeting"
+msgstr "Meeting"
+
+#: crates/app/src/state.rs:396
+msgid "Task"
+msgstr "Aufgabe"
+
+#: crates/app/src/state.rs:398
+msgid "Birthday"
+msgstr "Geburtstag"
+
+#: crates/app/src/state.rs:399
+msgid "Holiday"
+msgstr "Feiertag"
+
+#: crates/app/src/state.rs:408
+#, rust-format
+msgid "{} turns {}"
+msgstr "{} wird {}"
+
+#: crates/app/src/subscriptions.rs:28
+msgid "This is not a valid link"
+msgstr "Das ist kein gültiger Link"
+
+#: crates/app/src/subscriptions.rs:36
+#, rust-format
+msgid "The server answered with error {}"
+msgstr "Der Server antwortete mit Fehler {}"
+
+#: crates/app/src/subscriptions.rs:41
+msgid "The link does not lead to a calendar file"
+msgstr "Der Link führt zu keiner Kalenderdatei"
+
+#: crates/app/src/subscriptions.rs:124
+#, rust-format
+msgid "“{}” updated"
+msgstr "„{}“ aktualisiert"
+
+#: crates/app/src/subscriptions.rs:125
+#, rust-format
+msgid "“{}” could not be updated: {}"
+msgstr "„{}“ konnte nicht aktualisiert werden: {}"
+
+#: crates/app/src/subscriptions.rs:134
+msgid "Subscribe to calendar"
+msgstr "Kalender abonnieren"
+
+#: crates/app/src/subscriptions.rs:136
+msgid "Paste the link to a calendar, e.g. waste collection, school holidays, your club or a work calendar. Subscribed calendars can only be read and are updated every 30 minutes."
+msgstr "Füge den Link zu einem Kalender ein, z. B. Müllabfuhr, Schulferien, dein Verein oder ein Dienstkalender. Abonnierte Kalender kann man nur lesen; sie werden alle 30 Minuten aktualisiert."
+
+#: crates/app/src/subscriptions.rs:144
+msgid "Link (ends with .ics, or webcal://)"
+msgstr "Link (endet auf .ics, oder webcal://)"
+
+#: crates/app/src/subscriptions.rs:148
+msgid "Name (optional)"
+msgstr "Name (optional)"
+
+#: crates/app/src/subscriptions.rs:153
+msgid "Subscribe"
+msgstr "Abonnieren"
+
+#: crates/app/src/subscriptions.rs:173
+msgid "Loading calendar …"
+msgstr "Kalender wird geladen …"
+
+#: crates/app/src/subscriptions.rs:180
+#, rust-format
+msgid "Could not subscribe: {}"
+msgstr "Abonnieren hat nicht geklappt: {}"
+
+#: crates/app/src/subscriptions.rs:195
+msgid "Subscribed calendar"
+msgstr "Abonnierter Kalender"
+
+#: crates/app/src/subscriptions.rs:233
+#, rust-format
+msgid "“{}” subscribed · {}"
+msgstr "„{}“ abonniert · {}"
+
+#: crates/app/src/subscriptions.rs:245
+msgid "Remove subscription?"
+msgstr "Abo entfernen?"
+
+#: crates/app/src/subscriptions.rs:247
+#, rust-format
+msgid "“{}” and its entries disappear from your calendar. You can subscribe again at any time."
+msgstr "„{}“ und seine Einträge verschwinden aus deinem Kalender. Du kannst jederzeit wieder abonnieren."
+
+#: crates/app/src/subscriptions.rs:262
+#, rust-format
+msgid "“{}” removed"
+msgstr "„{}“ entfernt"
+
+#: crates/app/src/week.rs:169 crates/app/src/window.rs:1017
+msgid "all-day"
+msgstr "ganztägig"
+
+#: crates/app/src/week.rs:714
+msgid "copy"
+msgstr "Kopie"
+
+#: crates/app/src/week.rs:781
+msgid "Days of the week"
+msgstr "Wochentage"
+
+#: crates/app/src/week.rs:783
+#, rust-format
+msgid "{} – time grid"
+msgstr "{} – Zeitraster"
+
+#: crates/app/src/window.rs:82
+msgid "New kind …"
+msgstr "Neue Art …"
+
+#: crates/app/src/window.rs:83
+msgid "Subscribe to calendar …"
+msgstr "Kalender abonnieren …"
+
+#: crates/app/src/window.rs:86
+msgid "New kind or subscribed calendar"
+msgstr "Neue Art oder Kalender abonnieren"
+
+#: crates/app/src/window.rs:115
+msgid "Settings (Ctrl+,)"
+msgstr "Einstellungen (Strg+,)"
+
+#: crates/app/src/window.rs:128
+msgid "Sidebar (F9)"
+msgstr "Seitenleiste (F9)"
+
+#: crates/app/src/window.rs:133
+msgid "New entry (Ctrl+N)"
+msgstr "Neuer Eintrag (Strg+N)"
+
+#: crates/app/src/window.rs:139
+msgid "Today (T)"
+msgstr "Heute (T)"
+
+#: crates/app/src/window.rs:144
+msgid "Back (Page Up)"
+msgstr "Zurück (Bild ↑)"
+
+#: crates/app/src/window.rs:149
+msgid "Forward (Page Down)"
+msgstr "Weiter (Bild ↓)"
+
+#: crates/app/src/window.rs:156
+msgid "Routines (R)"
+msgstr "Routinen (R)"
+
+#: crates/app/src/window.rs:165
+msgid "Week (1 or W)"
+msgstr "Woche (1 oder W)"
+
+#: crates/app/src/window.rs:169
+msgid "Month (2 or M)"
+msgstr "Monat (2 oder M)"
+
+#: crates/app/src/window.rs:177
+msgid "Search (Ctrl+F)"
+msgstr "Suchen (Strg+F)"
+
+#: crates/app/src/window.rs:183
+msgid "Search titles, places and notes"
+msgstr "Titel, Orte und Notizen durchsuchen"
+
+#: crates/app/src/window.rs:610
+msgid "Next days"
+msgstr "Nächste Tage"
+
+#: crates/app/src/window.rs:620
+#, rust-format
+msgid "Week {}"
+msgstr "Kalenderwoche {}"
+
+#: crates/app/src/window.rs:622
+#, rust-format
+msgid "{} · this week"
+msgstr "{} · diese Woche"
+
+#: crates/app/src/window.rs:694
+msgid "Undone"
+msgstr "Rückgängig gemacht"
+
+#: crates/app/src/window.rs:696
+msgid "Nothing to undo"
+msgstr "Nichts rückgängig zu machen"
+
+#: crates/app/src/window.rs:702
+#, rust-format
+msgid "Something went wrong: {}"
+msgstr "Etwas ist schiefgegangen: {}"
+
+#: crates/app/src/window.rs:714
+#, rust-format
+msgid "Vacation {}: {} of {} days left"
+msgstr "Urlaub {}: {} von {} Tagen übrig"
+
+#: crates/app/src/window.rs:754
+msgid "Show or hide"
+msgstr "Ein- oder ausblenden"
+
+#: crates/app/src/window.rs:814
+#, rust-format
+msgid "Today · {}"
+msgstr "Heute · {}"
+
+#: crates/app/src/window.rs:816
+#, rust-format
+msgid "Tomorrow · {}"
+msgstr "Morgen · {}"
+
+#: crates/app/src/window.rs:845
+msgid "No entries"
+msgstr "Keine Einträge"
+
+#: crates/app/src/window.rs:846
+msgid "Add your first entry with “New entry”."
+msgstr "Leg deinen ersten Eintrag mit „Neuer Eintrag“ an."
+
+#: crates/app/src/window.rs:890
+#, rust-format
+msgid "{} result"
+msgid_plural "{} results"
+msgstr[0] "{} Treffer"
+msgstr[1] "{} Treffer"
+
+#: crates/app/src/window.rs:928
+msgid "New task from routine"
+msgstr "Neue Aufgabe aus Routine"
+
+#: crates/app/src/window.rs:940
+msgid "No routines yet. Save a task as routine, or add one in the settings."
+msgstr "Noch keine Routinen. Speichere eine Aufgabe als Routine oder lege eine in den Einstellungen an."
+
+#: crates/app/src/window.rs:983
+msgid "Manage routines …"
+msgstr "Routinen verwalten …"
+
+#: crates/app/src/window.rs:1080
+#, rust-format
+msgid "Last update failed: {}"
+msgstr "Letzte Aktualisierung fehlgeschlagen: {}"
+
+#: crates/app/src/window.rs:1091
+msgid "Update now"
+msgstr "Jetzt aktualisieren"
+
+#: crates/app/src/window.rs:1092
+msgid "Name and colour …"
+msgstr "Name und Farbe …"
+
+#: crates/app/src/window.rs:1093
+msgid "Remove subscription …"
+msgstr "Abo entfernen …"
+
+#: crates/app/src/window.rs:1098
+#, rust-format
+msgid "Updated {}"
+msgstr "Aktualisiert {}"
+
+#: crates/app/src/window.rs:1106
+msgid "Not updated yet"
+msgstr "Noch nicht aktualisiert"
+
+#: data/io.github.digistalter.Kalender.desktop.in.in:2
+msgid "Kalender"
+msgstr "Kalender"
+
+#: data/io.github.digistalter.Kalender.desktop.in.in:3
+msgid "Plan appointments, meetings and tasks"
+msgstr "Termine, Meetings und Aufgaben planen"
+
+#. Translators: search terms, separated by semicolons, ending with a semicolon.
+#: data/io.github.digistalter.Kalender.desktop.in.in:10
+msgid "calendar;appointment;meeting;task;routine;vacation;"
+msgstr "Kalender;Termin;Meeting;Aufgabe;Routine;Urlaub;calendar;appointment;"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:8
+msgid "Simple calendar for appointments, meetings and tasks"
+msgstr "Einfacher Kalender für Termine, Meetings und Aufgaben"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:10
+msgid "Kalender is a simple calendar for GNOME and KDE, made for planning at your computer. Your entries stay on your computer, without accounts; invitations go out by e-mail."
+msgstr "Kalender ist ein einfacher Kalender für GNOME und KDE, gemacht fürs Planen am Computer. Deine Einträge bleiben auf deinem Computer, ohne Konten; Einladungen gehen per E-Mail raus."
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:12
+msgid "Week and month, with a list of the next days in narrow windows"
+msgstr "Woche und Monat, im schmalen Fenster eine Liste der nächsten Tage"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:13
+msgid "Kinds with colour and symbol: appointment, meeting, task, vacation, birthday"
+msgstr "Arten mit Farbe und Symbol: Termin, Meeting, Aufgabe, Urlaub, Geburtstag"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:14
+msgid "Tasks with subtasks to tick off, and routines as templates"
+msgstr "Aufgaben mit Unteraufgaben zum Abhaken und Routinen als Vorlagen"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:15
+msgid "Vacation days counted, with the days left; birthdays with age"
+msgstr "Urlaubstage gezählt, mit Resttagen; Geburtstage mit Alter"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:16
+msgid "Series, travel time and buffers"
+msgstr "Serien, Reisezeit und Puffer"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:17
+msgid "Move and copy entries by dragging, with undo"
+msgstr "Einträge per Ziehen verschieben und kopieren, mit Rückgängig"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:18
+msgid "Invitations by e-mail, answers are taken over"
+msgstr "Einladungen per E-Mail, Antworten werden übernommen"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:19
+msgid "Subscribe to calendars from the web, read-only"
+msgstr "Kalender aus dem Netz abonnieren, nur zum Lesen"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:20
+msgid "Daily backup with restore"
+msgstr "Tägliche Datensicherung mit Wiederherstellen"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:21
+msgid "Public holidays for every German federal state"
+msgstr "Feiertage für jedes Bundesland"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:47
+msgid "First version for testing."
+msgstr "Erste Version zum Testen."

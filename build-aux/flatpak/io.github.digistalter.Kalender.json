@@ -1,0 +1,46 @@
+{
+  "id": "io.github.digistalter.Kalender",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "51",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.rust-stable"
+  ],
+  "command": "kalender",
+  "finish-args": [
+    "--share=ipc",
+    "--share=network",
+    "--filesystem=xdg-documents",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--device=dri"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/rust-stable/bin",
+    "build-args": [
+      "--share=network"
+    ],
+    "env": {
+      "CARGO_HOME": "/run/build/kalender/cargo"
+    }
+  },
+  "modules": [
+    {
+      "name": "kalender",
+      "buildsystem": "meson",
+      "sources": [
+        {
+          "type": "dir",
+          "path": "../..",
+          "skip": [
+            ".flatpak-builder",
+            ".git",
+            "builddir",
+            "flatpak-build",
+            "target"
+          ]
+        }
+      ]
+    }
+  ]
+}

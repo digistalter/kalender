@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: CC0-1.0 -->
+<component type="desktop-application">
+  <id>io.github.digistalter.Kalender</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name translate="no">Kalender</name>
+  <summary>Simple calendar for appointments, meetings and tasks</summary>
+  <description>
+    <p>Kalender is a simple calendar for GNOME and KDE, made for planning at your computer. Your entries stay on your computer, without accounts; invitations go out by e-mail.</p>
+    <ul>
+      <li>Week and month, with a list of the next days in narrow windows</li>
+      <li>Kinds with colour and symbol: appointment, meeting, task, vacation, birthday</li>
+      <li>Tasks with subtasks to tick off, and routines as templates</li>
+      <li>Vacation days counted, with the days left; birthdays with age</li>
+      <li>Series, travel time and buffers</li>
+      <li>Move and copy entries by dragging, with undo</li>
+      <li>Invitations by e-mail, answers are taken over</li>
+      <li>Subscribe to calendars from the web, read-only</li>
+      <li>Daily backup with restore</li>
+      <li>Public holidays for every German federal state</li>
+    </ul>
+  </description>
+  <developer id="io.github.digistalter">
+    <name translate="no">The Kalender developers</name>
+  </developer>
+  <launchable type="desktop-id">io.github.digistalter.Kalender.desktop</launchable>
+  <url type="homepage">https://github.com/digistalter/kalender</url>
+  <url type="bugtracker">https://github.com/digistalter/kalender/issues</url>
+  <url type="vcs-browser">https://github.com/digistalter/kalender</url>
+  <content_rating type="oars-1.1"/>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </supports>
+  <provides>
+    <binary>kalender</binary>
+    <mediatype>text/calendar</mediatype>
+  </provides>
+  <releases>
+    <release version="1.0.0" date="2026-11-25">
+      <description>
+        <p>First release.</p>
+      </description>
+    </release>
+  </releases>
+</component>

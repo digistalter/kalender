@@ -1,0 +1,18 @@
+# Rust-Build
+/target/
+
+# Editor und System
+*.swp
+*~
+.DS_Store
+
+# Lokale Claude-Code-Einstellungen
+.claude/settings.local.json
+
+# Meson
+/builddir/
+/flatpak-build/
+/.flatpak-builder/
+/build-deb/
+/build-rpm/
+/dist/

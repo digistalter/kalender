@@ -1,0 +1,22 @@
+[package]
+name = "kalender"
+description = "A simple, modern calendar app for Linux"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+publish = false
+
+[dependencies]
+adw = { package = "libadwaita", version = "0.9", features = ["v1_5"] }
+anyhow.workspace = true
+ashpd = { version = "0.14", default-features = false, features = ["async-io", "background", "email"] }
+chrono.workspace = true
+gettext-rs = { version = "0.8", features = ["gettext-system"] }
+gtk = { package = "gtk4", version = "0.11", features = ["v4_14"] }
+kalender-core = { path = "../core" }
+soup = { package = "soup3", version = "0.9" }
+tracing.workspace = true
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }

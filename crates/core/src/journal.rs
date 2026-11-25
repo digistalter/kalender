@@ -275,8 +275,15 @@ impl Store {
             return Ok(());
         }
         let tx = self.conn.unchecked_transaction()?;
+        self.persist_rows(changes)?;
+        tx.commit()?;
+        Ok(())
+    }
+
+    /// Writes fields and clock; the caller holds the transaction.
+    fn persist_rows(&self, changes: &[Change]) -> Result<()> {
         for c in changes {
-            tx.execute(
+            self.conn.execute(
                 "INSERT OR REPLACE INTO sync_fields (tbl, object, field, value, millis, counter, device)
                  VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
                 params![
@@ -295,15 +302,197 @@ impl Store {
             let r = journal.as_ref().expect("journal");
             (r.clock_state(), r.known().clone())
         };
-        tx.execute(
+        self.conn.execute(
             "INSERT OR REPLACE INTO sync_state (key, value) VALUES ('clock', ?1)",
             params![serde_json::to_string(&clock)?],
         )?;
-        tx.execute(
+        self.conn.execute(
             "INSERT OR REPLACE INTO sync_state (key, value) VALUES ('known', ?1)",
             params![serde_json::to_string(&known)?],
         )?;
+        Ok(())
+    }
+
+    /// Up to where this device knows the changes of every device.
+    pub fn sync_known(&self) -> Known {
+        self.journal
+            .borrow()
+            .as_ref()
+            .map(|r| r.known().clone())
+            .unwrap_or_default()
+    }
+
+    /// What a device with the given knowledge is missing, oldest first.
+    pub fn sync_changes_for(&self, theirs: &Known) -> Vec<Change> {
+        self.journal
+            .borrow()
+            .as_ref()
+            .map(|r| r.changes_for(theirs))
+            .unwrap_or_default()
+    }
+
+    /// Takes over changes from another device into the journal and the
+    /// calendar, in one transaction. Returns whether anything changed.
+    pub fn sync_apply(&self, changes: &[Change]) -> Result<bool> {
+        if changes.is_empty() {
+            return Ok(false);
+        }
+        let tx = self.conn.unchecked_transaction()?;
+        let (touched, winners) = {
+            let mut journal = self.journal.borrow_mut();
+            let Some(replica) = journal.as_mut() else {
+                return Ok(false);
+            };
+            let touched = replica.apply(changes);
+            let winners: Vec<Change> = changes
+                .iter()
+                .filter(|c| {
+                    replica
+                        .field(&c.table, &c.object, &c.field)
+                        .is_some_and(|(_, s)| s == c.stamp)
+                })
+                .cloned()
+                .collect();
+            (touched, winners)
+        };
+        self.persist_rows(&winners)?;
+        // Kinds first: entries refer to them.
+        let order = |t: &str| {
+            ["kind", "routine", "entry", "settings"]
+                .iter()
+                .position(|x| *x == t)
+                .unwrap_or(9)
+        };
+        let mut touched: Vec<(String, String)> = touched.into_iter().collect();
+        touched.sort_by_key(|(t, o)| (order(t), o.clone()));
+        for (table, uid) in &touched {
+            self.write_local(table, uid)?;
+        }
         tx.commit()?;
+        Ok(!touched.is_empty())
+    }
+
+    /// Brings one local row in line with the journal, without journaling again.
+    fn write_local(&self, table: &str, uid: &str) -> Result<()> {
+        let value = self
+            .journal
+            .borrow()
+            .as_ref()
+            .and_then(|r| r.object(table, uid));
+        let sql_table = match table {
+            "kind" => "kinds",
+            "routine" => "routines",
+            "entry" => "entries",
+            "settings" => {
+                if let Some(Value::Object(map)) = value {
+                    for (key, v) in map {
+                        if let (true, Some(v)) =
+                            (SHARED_SETTINGS.contains(&key.as_str()), v.as_str())
+                        {
+                            self.conn.execute(
+                                "INSERT OR REPLACE INTO settings (key, value) VALUES (?1, ?2)",
+                                params![key, v],
+                            )?;
+                        }
+                    }
+                }
+                return Ok(());
+            }
+            _ => return Ok(()),
+        };
+        let local: Option<(i64, String)> = self
+            .conn
+            .query_row(
+                &format!("SELECT id, data FROM {sql_table} WHERE json_extract(data, '$.uid') = ?1"),
+                params![uid],
+                |r| Ok((r.get(0)?, r.get(1)?)),
+            )
+            .optional()?;
+        let Some(mut v) = value else {
+            if let Some((id, _)) = local {
+                self.conn.execute(
+                    &format!("DELETE FROM {sql_table} WHERE id = ?1"),
+                    params![id],
+                )?;
+            }
+            return Ok(());
+        };
+        let old: Option<Value> = local
+            .as_ref()
+            .and_then(|(_, d)| serde_json::from_str(d).ok());
+        let id = local.as_ref().map(|(id, _)| *id).unwrap_or(0);
+        let map = v.as_object_mut().expect("object");
+        map.insert("id".into(), Value::from(id));
+        map.insert("uid".into(), Value::from(uid));
+        match table {
+            "kind" => {
+                let visible = old
+                    .as_ref()
+                    .and_then(|o| o.get("visible").cloned())
+                    .unwrap_or(Value::Bool(true));
+                map.insert("visible".into(), visible);
+                if let Some(url) = map.get("source").and_then(|s| s.get("url")).cloned() {
+                    let mut source = serde_json::json!({ "url": url });
+                    if let Some(o) = old.as_ref().and_then(|o| o.get("source")) {
+                        for key in ["updated", "error"] {
+                            if let Some(x) = o.get(key) {
+                                source[key] = x.clone();
+                            }
+                        }
+                    }
+                    map.insert("source".into(), source);
+                }
+            }
+            "entry" => {
+                let kinds = self.kinds()?;
+                let kind_uid = map
+                    .get("kind")
+                    .and_then(Value::as_str)
+                    .unwrap_or_default()
+                    .to_owned();
+                let kind = kinds
+                    .iter()
+                    .find(|k| k.uid == kind_uid)
+                    .or_else(|| {
+                        kinds
+                            .iter()
+                            .find(|k| k.builtin == Some(crate::model::Builtin::Event))
+                    })
+                    .map(|k| k.id)
+                    .unwrap_or(0);
+                map.insert("kind".into(), Value::from(kind));
+            }
+            _ => {}
+        }
+        let data = v.to_string();
+        // Check it reads back before writing (a newer app version may send more).
+        let readable = match table {
+            "kind" => serde_json::from_str::<Kind>(&data).is_ok(),
+            "routine" => serde_json::from_str::<Routine>(&data).is_ok(),
+            _ => serde_json::from_str::<Entry>(&data).is_ok(),
+        };
+        if !readable {
+            tracing::warn!("skipping unreadable {table} {uid} from another device");
+            return Ok(());
+        }
+        if id == 0 {
+            self.conn.execute(
+                &format!("INSERT INTO {sql_table} (data) VALUES ('{{}}')"),
+                [],
+            )?;
+            let id = self.conn.last_insert_rowid();
+            let mut v: Value = serde_json::from_str(&data)?;
+            v["id"] = Value::from(id);
+            self.conn.execute(
+                &format!("UPDATE {sql_table} SET data = ?1 WHERE id = ?2"),
+                params![v.to_string(), id],
+            )?;
+        } else {
+            self.conn.execute(
+                &format!("UPDATE {sql_table} SET data = ?1 WHERE id = ?2"),
+                params![data, id],
+            )?;
+        }
         Ok(())
     }
 }
@@ -320,6 +509,93 @@ mod tests {
 
     fn object(store: &Store, table: &str, uid: &str) -> Option<Value> {
         store.journal.borrow().as_ref().unwrap().object(table, uid)
+    }
+
+    /// Two devices exchange everything (as the network part will do).
+    fn meet(a: &Store, b: &Store) {
+        let to_b = a.sync_changes_for(&b.sync_known());
+        let to_a = b.sync_changes_for(&a.sync_known());
+        b.sync_apply(&to_b).unwrap();
+        a.sync_apply(&to_a).unwrap();
+    }
+
+    #[test]
+    fn two_stores_end_up_with_the_same_calendar() {
+        let pc = Store::in_memory().unwrap();
+        let phone = Store::in_memory().unwrap();
+        // Built-in kinds have the same uid: they don't double.
+        let task = pc
+            .kinds()
+            .unwrap()
+            .into_iter()
+            .find(|k| k.uid == "builtin-task")
+            .unwrap();
+        let mut e = Entry::new(task.id, "Putzen", at(day(), 15, 0), at(day(), 17, 0));
+        e.add_subtask("Bad");
+        e.add_subtask("Küche");
+        pc.save_entry(&mut e).unwrap();
+        let mut own = Kind {
+            id: 0,
+            uid: String::new(),
+            name: "Sport".into(),
+            color: "#5f8f3a".into(),
+            icon: "star".into(),
+            builtin: None,
+            visible: false,
+            source: None,
+        };
+        pc.save_kind(&mut own).unwrap();
+        pc.set_setting("vacation_per_year", "28").unwrap();
+        meet(&pc, &phone);
+
+        assert_eq!(phone.kinds().unwrap().len(), 7);
+        let sport = phone
+            .kinds()
+            .unwrap()
+            .into_iter()
+            .find(|k| k.uid == own.uid)
+            .unwrap();
+        assert!(sport.visible, "visibility is per device");
+        assert_eq!(
+            phone.setting("vacation_per_year").unwrap().as_deref(),
+            Some("28")
+        );
+        let mut on_phone = phone.entries().unwrap().pop().unwrap();
+        let phone_task = phone
+            .kinds()
+            .unwrap()
+            .into_iter()
+            .find(|k| k.uid == "builtin-task")
+            .unwrap();
+        assert_eq!(on_phone.kind, phone_task.id, "kind mapped to the local id");
+        assert_eq!(on_phone.subtask_texts(), vec!["Bad", "Küche"]);
+
+        // Ticks on both devices, a subtask on one, a move on the other.
+        on_phone.set_done(day(), 0, true);
+        on_phone.start = at(day(), 16, 0);
+        on_phone.end = at(day(), 18, 0);
+        phone.save_entry(&mut on_phone).unwrap();
+        e.set_done(day(), 1, true);
+        e.add_subtask("Fenster");
+        pc.save_entry(&mut e).unwrap();
+        meet(&pc, &phone);
+
+        let a = pc.entries().unwrap().pop().unwrap();
+        let b = phone.entries().unwrap().pop().unwrap();
+        assert_eq!(a.start, at(day(), 16, 0));
+        assert_eq!(a.subtask_texts(), vec!["Bad", "Küche", "Fenster"]);
+        assert_eq!(a.done_on(day()), vec![true, true, false]);
+        assert_eq!(
+            (a.start, a.subtask_texts(), a.done.clone()),
+            (b.start, b.subtask_texts(), b.done.clone())
+        );
+
+        // Deleting reaches the other device.
+        phone.delete_entry(b.id).unwrap();
+        meet(&pc, &phone);
+        assert!(pc.entries().unwrap().is_empty());
+        // Nothing left to send.
+        assert!(pc.sync_changes_for(&phone.sync_known()).is_empty());
     }
 
     #[test]

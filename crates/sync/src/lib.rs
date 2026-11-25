@@ -256,6 +256,13 @@ impl Replica {
         touched
     }
 
+    /// The current value of one field and when it was set.
+    pub fn field(&self, table: &str, object: &str, field: &str) -> Option<(&Value, Stamp)> {
+        self.fields
+            .get(&(table.to_owned(), object.to_owned(), field.to_owned()))
+            .map(|(v, s)| (v, *s))
+    }
+
     /// Everything the other device has not seen yet, oldest first. Taking
     /// over only the beginning of the list (connection lost) is safe.
     pub fn changes_for(&self, theirs: &Known) -> Vec<Change> {

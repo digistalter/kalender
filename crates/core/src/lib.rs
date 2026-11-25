@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+pub mod devices;
 pub mod holidays;
 pub mod ics;
 pub mod journal;

@@ -47,6 +47,7 @@ impl Store {
             [],
         )?;
         crate::journal::create_tables(&conn)?;
+        crate::devices::create_tables(&conn)?;
         let store = Self {
             conn,
             journal: RefCell::new(None),

@@ -7,6 +7,7 @@ Wie man Kalender aus dem Quelltext baut, testet und ausprobiert. Für Nutzer ste
 | Pfad | Inhalt |
 |---|---|
 | [`crates/sync/`](../crates/sync/) | Regeln für den Abgleich zwischen Geräten (logische Uhr, Zusammenführen je Feld), ohne Speicher und Netz, mit Tests |
+| [`crates/link/`](../crates/link/) | Verbindung zwischen Geräten im Heimnetz: Finden (mDNS), Koppeln (QR-Code/Zahl, Prüfwörter), verschlüsselter Abgleich (Noise), mit Tests |
 | [`crates/core/`](../crates/core/) | Logik ohne Oberfläche, mit Tests |
 | [`crates/app/`](../crates/app/) | Die App mit GTK 4 und libadwaita |
 | [`data/`](../data/) | Starter-Eintrag, Metainfo, D-Bus-Dienst, Bildschirmfotos |
@@ -21,6 +22,7 @@ Wie man Kalender aus dem Quelltext baut, testet und ausprobiert. Für Nutzer ste
 | `model.rs` | Einträge, Arten, Serien, Routinen, Abo-Quellen |
 | `recur.rs` | Serien in einzelne Termine auflösen |
 | `store.rs` | Speicher (SQLite, je Objekt ein JSON-Datensatz), Sicherung und Wiederherstellen |
+| `devices.rs` | Eigener Schlüssel dieses Geräts und die gekoppelten Geräte |
 | `journal.rs` | Änderungsprotokoll für den Abgleich: jede Änderung je Feld, mit Kennungen, die auf allen Geräten gleich sind |
 | `ics.rs` | iCalendar lesen und schreiben (Einladung, Antwort, Absage, Import, Export) |
 | `subscription.rs` | Abonnierte Kalender: Links umwandeln, Einträge bilden |
@@ -104,6 +106,23 @@ Hilfen für Bildschirmfotos:
 | `KALENDER_SHOT_ACTION=…` | vorher ausführen: `open:Titel`, `edit:Titel`, `ctx:Titel`, `dup:Titel`, `delete:Titel`, `new:Task` (Art auf Englisch), `search:Text`, `prefs`, `prefs:kinds`, `kinds`, `shortcuts`, `routines`, `subscribe:Link`, `notify:Titel`, `backup` |
 
 Da die App nur einmal laufen kann, zwischen zwei Aufnahmen kurz warten und eine laufende Instanz vorher beenden.
+
+## Abgleich zwischen zwei Programmen ausprobieren
+
+Ein kleines Prüfwerkzeug koppelt zwei Kalender-Dateien und gleicht sie ab, auch zwischen zwei Rechnern im selben Netz:
+
+```bash
+cargo run -p kalender-core --example abgleich -- /tmp/PC.sqlite serve
+```
+
+Im zweiten Terminal mit dem angezeigten QR-Text (oder `pair IP:PORT ZAHL`), dann abgleichen:
+
+```bash
+cargo run -p kalender-core --example abgleich -- /tmp/Handy.sqlite pair "kalender:pair?…"
+cargo run -p kalender-core --example abgleich -- /tmp/Handy.sqlite sync
+```
+
+Weitere Befehle: `add "Titel"`, `list`. Das Finden im Netz testet `cargo test -p kalender-link -- --ignored` (braucht ein Netz mit Multicast).
 
 ## Tests und Prüfungen
 

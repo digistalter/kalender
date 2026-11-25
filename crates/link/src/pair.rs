@@ -234,6 +234,10 @@ fn finish(
         bail!("the other device gave a wrong key");
     }
     let words = check_words(hash);
+    // The other person may take a while to compare the words.
+    channel
+        .stream
+        .set_read_timeout(Some(std::time::Duration::from_secs(300)))?;
     let mine = confirm(&words, &peer);
     channel.send(&Message::Decision(mine))?;
     let Message::Decision(theirs) = channel.receive()? else {

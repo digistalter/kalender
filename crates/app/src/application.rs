@@ -91,6 +91,7 @@ fn main_window(
     crate::notify::start(app, state.clone());
     crate::subscriptions::start(&ui);
     crate::backup::start(&ui);
+    crate::netsync::start(&ui);
     crate::background::sync(state.borrow().settings.run_in_background);
 
     // With "Run in the background", closing the window keeps reminders coming.
@@ -109,6 +110,7 @@ fn main_window(
     });
     *slot.borrow_mut() = Some(ui.clone());
     crate::devtools::shot(&ui);
+    crate::devtools::sync_test(&ui);
     ui
 }
 

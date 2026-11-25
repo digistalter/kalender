@@ -40,6 +40,7 @@ Wie man Kalender aus dem Quelltext baut, testet und ausprobiert. Für Nutzer ste
 | `share.rs` | Einladungen per E-Mail, .ics öffnen, Import und Export |
 | `subscriptions.rs` | Abos laden (libsoup) und alle 30 Minuten aktualisieren |
 | `backup.rs` | Tägliche Sicherung |
+| `netsync.rs`, `devices.rs` | Abgleich im Heimnetz: Netz-Threads mit Brücke zum Hauptthread, Lauschen und Ankündigen, Einstellungen → Geräte, Koppeln, Prüfwörter |
 | `notify.rs`, `background.rs` | Erinnerungen, Start bei der Anmeldung |
 | `prefs.rs` | Einstellungen |
 | `devtools.rs` | Beispieldaten und Bildschirmfotos (nur über Umgebungsvariablen) |
@@ -122,7 +123,14 @@ cargo run -p kalender-core --example abgleich -- /tmp/Handy.sqlite pair "kalende
 cargo run -p kalender-core --example abgleich -- /tmp/Handy.sqlite sync
 ```
 
-Weitere Befehle: `add "Titel"`, `list`. Das Finden im Netz testet `cargo test -p kalender-link -- --ignored` (braucht ein Netz mit Multicast).
+Weitere Befehle: `add "Titel"`, `list`.
+
+Zwei Installationen der App auf einem Rechner (je eigener Datenordner, ohne Sitzungsbus, damit beide unabhängig laufen); `offer` öffnet „Gerät koppeln“ und schreibt Adresse und Zahl in eine Datei, `join` koppelt damit, Prüfwörter werden dabei automatisch bestätigt:
+
+```bash
+DBUS_SESSION_BUS_ADDRESS=unix:path=/nix XDG_DATA_HOME=/tmp/A KALENDER_TEST_SYNC=offer:/tmp/angebot cargo run
+DBUS_SESSION_BUS_ADDRESS=unix:path=/nix XDG_DATA_HOME=/tmp/B KALENDER_TEST_SYNC=join:127.0.0.1:47011:ZAHL cargo run
+``` Das Finden im Netz testet `cargo test -p kalender-link -- --ignored` (braucht ein Netz mit Multicast).
 
 ## Tests und Prüfungen
 

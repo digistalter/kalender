@@ -166,3 +166,14 @@ pub fn days(value: f64) -> String {
         format!("{value:.1}")
     }
 }
+
+/// „just now“, „3 min ago“, „2 h ago“, or the date.
+pub fn ago(then: chrono::NaiveDateTime, now: chrono::NaiveDateTime) -> String {
+    let minutes = (now - then).num_minutes().max(0);
+    match minutes {
+        0 => crate::i18n::tr("just now"),
+        1..=59 => crate::i18n::trf("{} min ago", &[&minutes.to_string()]),
+        60..=1439 => crate::i18n::trf("{} h ago", &[&(minutes / 60).to_string()]),
+        _ => date_short(then.date()),
+    }
+}

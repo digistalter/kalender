@@ -29,6 +29,7 @@ pub struct Ui {
     pub calendar: gtk::Calendar,
     pub kinds_list: gtk::ListBox,
     pub vacation_label: gtk::Label,
+    pub sync_label: gtk::Label,
     pub routines_button: gtk::MenuButton,
     pub week_button: gtk::ToggleButton,
     pub month_button: gtk::ToggleButton,
@@ -104,6 +105,17 @@ pub fn build(app: &adw::Application, state: Shared) -> UiRc {
         .visible(false)
         .build();
     side_box.append(&vacation_label);
+    let sync_label = gtk::Label::builder()
+        .xalign(0.0)
+        .wrap(true)
+        .margin_start(18)
+        .margin_end(12)
+        .margin_top(6)
+        .margin_bottom(10)
+        .css_classes(["dim-label", "caption"])
+        .visible(false)
+        .build();
+    side_box.append(&sync_label);
     let side_scroll = gtk::ScrolledWindow::builder()
         .hscrollbar_policy(gtk::PolicyType::Never)
         .vexpand(true)
@@ -266,6 +278,7 @@ pub fn build(app: &adw::Application, state: Shared) -> UiRc {
         calendar: calendar.clone(),
         kinds_list,
         vacation_label,
+        sync_label,
         routines_button: routines_button.clone(),
         week_button: week_button.clone(),
         month_button: month_button.clone(),
@@ -468,6 +481,7 @@ fn add_actions(ui: &UiRc) {
     action("import", Box::new(crate::share::import_file));
     action("new-kind", Box::new(prefs::new_kind));
     action("subscribe", Box::new(crate::subscriptions::add_dialog));
+    crate::devices::add_actions(ui);
     // Actions on one subscribed calendar, with its kind id.
     let with_id = |name: &str, f: fn(&UiRc, Id)| {
         let a = gio::SimpleAction::new(name, Some(glib::VariantTy::INT64));
@@ -571,7 +585,36 @@ impl Ui {
     }
 
     /// Brings every part of the window up to date with the state.
+    /// Shows the current state; also lets paired devices know about changes soon.
     pub fn refresh(self: &Rc<Self>) {
+        self.refresh_without_sync();
+        if let Some(net) = crate::netsync::get() {
+            net.changed_here(self);
+        }
+    }
+
+    /// „Abgeglichen mit Pixel 8 · vor 3 Min.“ under the kinds.
+    pub fn update_sync_status(&self) {
+        let st = self.state.borrow();
+        let peers = st.store.peers().unwrap_or_default();
+        let last = peers
+            .iter()
+            .filter_map(|p| p.synced.map(|t| (t, &p.info.name)))
+            .max();
+        let text = match (peers.is_empty() || !st.settings.sync_enabled, last) {
+            (true, _) => None,
+            (false, Some((t, name))) => Some(trf(
+                "Synced with {} · {}",
+                &[name, &crate::fmt::ago(t, crate::state::now())],
+            )),
+            (false, None) => Some(tr("Not synced yet")),
+        };
+        self.sync_label.set_visible(text.is_some());
+        self.sync_label.set_label(&text.unwrap_or_default());
+    }
+
+    pub fn refresh_without_sync(self: &Rc<Self>) {
+        self.update_sync_status();
         self.syncing.set(true);
         let (view, selected, week_numbers) = {
             let st = self.state.borrow();

@@ -116,6 +116,50 @@ impl Store {
         Ok(())
     }
 
+    /// Before taking over another device's calendar: removes all entries,
+    /// kinds and routines here and forgets the journal, so nothing of the old
+    /// calendar travels to other devices. Built-in kinds are put back
+    /// (unjournaled) until the other device's arrive.
+    pub fn reset_for_takeover(&self) -> Result<()> {
+        let tx = self.conn.unchecked_transaction()?;
+        for table in ["entries", "kinds", "routines", "sync_fields"] {
+            self.conn.execute(&format!("DELETE FROM {table}"), [])?;
+        }
+        self.conn
+            .execute("DELETE FROM sync_state WHERE key = 'known'", [])?;
+        for kind in crate::store::default_kinds() {
+            self.conn
+                .execute("INSERT INTO kinds (data) VALUES ('{}')", [])?;
+            let id = self.conn.last_insert_rowid();
+            let kind = crate::model::Kind { id, ..kind };
+            self.conn.execute(
+                "UPDATE kinds SET data = ?1 WHERE id = ?2",
+                params![serde_json::to_string(&kind)?, id],
+            )?;
+        }
+        tx.commit()?;
+        let mut journal = self.journal.borrow_mut();
+        if let Some(r) = journal.as_ref() {
+            *journal = Some(kalender_sync::Replica::restore(
+                r.device(),
+                r.clock_state(),
+                Vec::new(),
+                Known::new(),
+            ));
+        }
+        Ok(())
+    }
+
+    /// Whether this calendar has anything of its own (entries, own kinds, routines).
+    pub fn has_own_data(&self) -> Result<bool> {
+        Ok(!self.entries()?.is_empty()
+            || !self.routines()?.is_empty()
+            || self
+                .kinds()?
+                .iter()
+                .any(|k| k.builtin.is_none() && k.source.is_none()))
+    }
+
     /// Forgets a device: it can no longer sync with this one.
     pub fn remove_peer(&self, device: DeviceId) -> Result<()> {
         self.conn.execute(

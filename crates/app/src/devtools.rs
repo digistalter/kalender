@@ -296,6 +296,9 @@ fn run_action(ui: &UiRc, action: &str) {
         "kinds" => crate::prefs::new_kind(ui),
         "shortcuts" => crate::prefs::shortcuts(ui),
         "routines" => ui.routines_button.popup(),
+        "pair" => {
+            crate::devices::open_pair_dialog_for_test(ui);
+        }
         "backup" => {
             let _ = crate::backup::run(&ui.state.borrow(), true);
         }
@@ -374,4 +377,36 @@ fn render(window: &gtk::Widget, path: &std::path::Path) -> bool {
         return false;
     }
     true
+}
+
+/// Test helpers for syncing two installations on one computer (see docs/ENTWICKLUNG.md):
+/// `KALENDER_TEST_SYNC=offer:FILE` opens „Gerät koppeln“ and writes address and
+/// number to FILE; `KALENDER_TEST_SYNC=join:ADDRESS:NUMBER` pairs with it.
+/// With either, check words are confirmed and calendars merged without asking.
+pub fn sync_test(ui: &UiRc) {
+    let Ok(task) = std::env::var("KALENDER_TEST_SYNC") else {
+        return;
+    };
+    let weak = std::rc::Rc::downgrade(ui);
+    glib::timeout_add_local_once(std::time::Duration::from_secs(2), move || {
+        let Some(u) = weak.upgrade() else { return };
+        let Some(net) = crate::netsync::get() else {
+            return;
+        };
+        if let Some(file) = task.strip_prefix("offer:") {
+            crate::prefs::show_page(&u, "devices");
+            let text = crate::devices::open_pair_dialog_for_test(&u);
+            let _ = std::fs::write(file, text);
+        } else if let Some(rest) = task.strip_prefix("join:")
+            && let Some((address, number)) = rest.rsplit_once(':')
+            && let Ok(address) = address.parse()
+        {
+            net.pair_with(address, number.to_owned());
+        }
+    });
+}
+
+/// Whether the sync test helpers answer for the person.
+pub fn auto_confirm() -> bool {
+    std::env::var_os("KALENDER_TEST_SYNC").is_some()
 }

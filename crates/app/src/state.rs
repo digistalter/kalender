@@ -40,6 +40,8 @@ pub struct Settings {
     pub backup: bool,
     /// Folder for the copies; "" = the default folder (see `backup::folder`).
     pub backup_dir: String,
+    /// Sync with paired devices in the home network.
+    pub sync_enabled: bool,
 }
 
 impl Settings {
@@ -69,6 +71,7 @@ impl Settings {
             vacation_per_year: num("vacation_per_year", 0).max(0) as u32,
             backup: flag("backup", true),
             backup_dir: get("backup_dir").unwrap_or_default(),
+            sync_enabled: flag("sync_enabled", true),
         }
     }
 
@@ -98,6 +101,7 @@ impl Settings {
         store.set_setting("vacation_per_year", &self.vacation_per_year.to_string())?;
         store.set_setting("backup", b(self.backup))?;
         store.set_setting("backup_dir", &self.backup_dir)?;
+        store.set_setting("sync_enabled", b(self.sync_enabled))?;
         Ok(())
     }
 }
@@ -156,6 +160,17 @@ impl State {
         self.entries = self.store.entries()?;
         self.routines = self.store.routines()?;
         self.settings = Settings::load(&self.store);
+        Ok(())
+    }
+
+    /// Reads everything again (after another device changed the calendar).
+    pub fn reload(&mut self) -> Result<()> {
+        self.kinds = self.store.kinds()?;
+        self.entries = self.store.entries()?;
+        self.routines = self.store.routines()?;
+        let local = (self.settings.language.clone(), self.settings.start_view);
+        self.settings = Settings::load(&self.store);
+        (self.settings.language, self.settings.start_view) = local;
         Ok(())
     }
 

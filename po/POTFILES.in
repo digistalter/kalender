@@ -2,9 +2,11 @@ crates/app/src/application.rs
 crates/app/src/background.rs
 crates/app/src/backup.rs
 crates/app/src/detail.rs
+crates/app/src/devices.rs
 crates/app/src/editor.rs
 crates/app/src/fmt.rs
 crates/app/src/month.rs
+crates/app/src/netsync.rs
 crates/app/src/notify.rs
 crates/app/src/ops.rs
 crates/app/src/prefs.rs

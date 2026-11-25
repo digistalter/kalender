@@ -72,6 +72,7 @@ pub fn show_page(ui: &UiRc, page: &str) {
         .build();
     dialog.add(&kinds);
     dialog.add(&routines);
+    dialog.add(&crate::devices::page(ui));
     fill_kinds(ui, &kinds, &dialog);
     fill_routines(ui, &routines, &dialog);
     dialog.set_visible_page_name(page);

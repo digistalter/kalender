@@ -17,6 +17,10 @@ chrono.workspace = true
 gettext-rs = { version = "0.8", features = ["gettext-system"] }
 gtk = { package = "gtk4", version = "0.11", features = ["v4_14"] }
 kalender-core = { path = "../core" }
+kalender-link = { path = "../link" }
+kalender-sync = { path = "../sync" }
+async-channel = "2"
+qrcode = { version = "0.15", default-features = false }
 soup = { package = "soup3", version = "0.9" }
 tracing.workspace = true
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }

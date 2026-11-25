@@ -212,10 +212,8 @@ fn nothing_is_sent_twice() {
 
 /// Like serde's defaults in the app: missing lists are empty.
 fn with_defaults(mut v: Value) -> Value {
-    for key in ["subtasks"] {
-        if v.get(key).is_none() {
-            v[key] = json!([]);
-        }
+    if v.get("subtasks").is_none() {
+        v["subtasks"] = json!([]);
     }
     if v.get("done").is_none() {
         v["done"] = json!({});

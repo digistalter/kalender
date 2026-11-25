@@ -6,7 +6,7 @@
 
 A simple, modern calendar for Linux (GNOME and KDE), written in Rust with GTK 4 and libadwaita. Sister app of [E-Mail](https://github.com/digistalter/email).
 
-Made for planning at your computer: your entries stay on this computer, without accounts and without servers. Invitations go out by e-mail, and you can add calendars from the web, such as waste collection or school holidays. Kalender does not sync with your phone (yet).
+Made for planning at your computer: your entries stay on this computer, without accounts and without servers. Your computers sync with each other directly in the home network. Invitations go out by e-mail, and you can add calendars from the web, such as waste collection or school holidays. An Android app is in the works.
 
 ![Week with appointments, meetings and tasks](data/screenshots/week.png)
 
@@ -27,6 +27,7 @@ Made for planning at your computer: your entries stay on this computer, without 
 - **Drag** entries to another time or day; with <kbd>Ctrl</kbd> a copy is made. Right click: duplicate, move to …, save as routine, save as file, delete – always with undo.
 - **Invitations by e-mail.** The calendar prepares the mail with a standard calendar attachment and opens it in your mail app. Google, Outlook, Apple and Thunderbird understand it. Answers are taken over with one click.
 - **Subscribed calendars.** Paste a link (webcal, .ics, also Dropbox and Nextcloud links) and the calendar shows it read-only and keeps it up to date.
+- **Sync in the home network.** Pair your computers once with a code and compare four check words; from then on they sync directly with each other whenever they are in the same Wi-Fi – end-to-end encrypted, without a server or account. All devices are equal; changes made on the way follow at the next meeting.
 - **Daily backup** of all data into a folder of your choice, with restore.
 - **Past entries and finished tasks fade out**, so the next things stand out.
 - Reminders as system notifications, also when the window was never opened. English and German.
@@ -37,18 +38,18 @@ The installation files for every version are under [Releases](https://github.com
 
 ### Ubuntu, Debian, Linux Mint, Pop!_OS, elementary OS
 
-File: `kalender_1.0.0_amd64.deb` · for Ubuntu 24.04 and newer, Debian 13 and newer, Linux Mint 22 and newer
+File: `kalender_1.1.0_amd64.deb` · for Ubuntu 24.04 and newer, Debian 13 and newer, Linux Mint 22 and newer
 
 ```bash
-sudo apt install ./kalender_1.0.0_amd64.deb
+sudo apt install ./kalender_1.1.0_amd64.deb
 ```
 
 ### Fedora
 
-File: `kalender-1.0.0-1.x86_64.rpm` · for the current Fedora releases
+File: `kalender-1.1.0-1.x86_64.rpm` · for the current Fedora releases
 
 ```bash
-sudo dnf install ./kalender-1.0.0-1.x86_64.rpm
+sudo dnf install ./kalender-1.1.0-1.x86_64.rpm
 ```
 
 ### All other systems (Flatpak)

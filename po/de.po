@@ -218,41 +218,41 @@ msgstr "Aus: keine Verbindungen, die Kopplungen bleiben"
 msgid "This device"
 msgstr "Dieses Gerät"
 
-#: crates/app/src/devices.rs:91
+#: crates/app/src/devices.rs:95
 #, rust-format
 msgid "Synced {}"
 msgstr "Abgeglichen {}"
 
-#: crates/app/src/devices.rs:92 crates/app/src/window.rs:604
+#: crates/app/src/devices.rs:96 crates/app/src/window.rs:610
 msgid "Not synced yet"
 msgstr "Noch nicht abgeglichen"
 
-#: crates/app/src/devices.rs:105
+#: crates/app/src/devices.rs:112
 msgid "Sync now"
 msgstr "Jetzt abgleichen"
 
-#: crates/app/src/devices.rs:106
+#: crates/app/src/devices.rs:113
 msgid "Remove device …"
 msgstr "Gerät entfernen …"
 
-#: crates/app/src/devices.rs:119
+#: crates/app/src/devices.rs:126
 msgid "Pair a device …"
 msgstr "Gerät koppeln …"
 
-#: crates/app/src/devices.rs:120
+#: crates/app/src/devices.rs:128
 msgid "Pair with another computer …"
 msgstr "Mit einem anderen Computer koppeln …"
 
-#: crates/app/src/devices.rs:175
+#: crates/app/src/devices.rs:195
 msgid "Remove device?"
 msgstr "Gerät entfernen?"
 
-#: crates/app/src/devices.rs:177
+#: crates/app/src/devices.rs:197
 #, rust-format
 msgid "“{}” can no longer sync with this computer. Its entries stay on all devices."
 msgstr "„{}“ kann sich danach nicht mehr mit diesem Computer abgleichen. Seine Einträge bleiben auf allen Geräten."
 
-#: crates/app/src/devices.rs:181 crates/app/src/devices.rs:306
+#: crates/app/src/devices.rs:201 crates/app/src/devices.rs:351
 #: crates/app/src/editor.rs:271 crates/app/src/ops.rs:26
 #: crates/app/src/ops.rs:331 crates/app/src/prefs.rs:419
 #: crates/app/src/prefs.rs:673 crates/app/src/prefs.rs:826
@@ -261,96 +261,96 @@ msgstr "„{}“ kann sich danach nicht mehr mit diesem Computer abgleichen. Sei
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: crates/app/src/devices.rs:181 crates/app/src/editor.rs:690
+#: crates/app/src/devices.rs:201 crates/app/src/editor.rs:690
 #: crates/app/src/subscriptions.rs:252
 msgid "Remove"
 msgstr "Entfernen"
 
-#: crates/app/src/devices.rs:190 crates/app/src/subscriptions.rs:263
+#: crates/app/src/devices.rs:210 crates/app/src/subscriptions.rs:263
 #, rust-format
 msgid "“{}” removed"
 msgstr "„{}“ entfernt"
 
-#: crates/app/src/devices.rs:219
+#: crates/app/src/devices.rs:240
 msgid "Turn on “Sync in the home network” and connect to your Wi-Fi first"
 msgstr "Schalte zuerst „Im Heimnetz abgleichen“ ein und verbinde dich mit deinem WLAN"
 
-#: crates/app/src/devices.rs:235
+#: crates/app/src/devices.rs:263
 #, rust-format
 msgid "Without a camera: address {} · number {}"
 msgstr "Ohne Kamera: Adresse {} · Zahl {}"
 
-#: crates/app/src/devices.rs:242
+#: crates/app/src/devices.rs:272
 msgid "Pair a device"
 msgstr "Gerät koppeln"
 
-#: crates/app/src/devices.rs:243
+#: crates/app/src/devices.rs:274
 msgid "Open Kalender on the phone or tablet → “Pair with computer” and scan the code."
 msgstr "Öffne Kalender auf dem Handy oder Tablet → „Mit PC koppeln“ und scanne den Code."
 
-#: crates/app/src/devices.rs:246
+#: crates/app/src/devices.rs:278
 msgid "Close"
 msgstr "Schließen"
 
-#: crates/app/src/devices.rs:291
+#: crates/app/src/devices.rs:332
 msgid "Pair with another computer"
 msgstr "Mit einem anderen Computer koppeln"
 
-#: crates/app/src/devices.rs:292
+#: crates/app/src/devices.rs:334
 msgid "On the other computer, open Settings → Devices → “Pair a device …” and type its address and number here."
 msgstr "Öffne am anderen Computer Einstellungen → Geräte → „Gerät koppeln …“ und gib dessen Adresse und Zahl hier ein."
 
-#: crates/app/src/devices.rs:298
+#: crates/app/src/devices.rs:342
 msgid "Address (e.g. 192.168.178.20)"
 msgstr "Adresse (z. B. 192.168.178.20)"
 
-#: crates/app/src/devices.rs:300
+#: crates/app/src/devices.rs:345
 msgid "Number"
 msgstr "Zahl"
 
-#: crates/app/src/devices.rs:306 crates/app/src/devices.rs:351
+#: crates/app/src/devices.rs:351 crates/app/src/devices.rs:402
 msgid "Pair"
 msgstr "Koppeln"
 
-#: crates/app/src/devices.rs:320
+#: crates/app/src/devices.rs:366
 msgid "Connecting …"
 msgstr "Verbinde …"
 
-#: crates/app/src/devices.rs:325
+#: crates/app/src/devices.rs:371
 msgid "Please check the address"
 msgstr "Bitte prüfe die Adresse"
 
-#: crates/app/src/devices.rs:326
+#: crates/app/src/devices.rs:372
 msgid "The number has six digits"
 msgstr "Die Zahl hat sechs Stellen"
 
-#: crates/app/src/devices.rs:341
+#: crates/app/src/devices.rs:392
 #, rust-format
 msgid "Pair “{}”?"
 msgstr "„{}“ koppeln?"
 
-#: crates/app/src/devices.rs:342
+#: crates/app/src/devices.rs:393
 msgid "Do these words match the ones on the other device?"
 msgstr "Stimmen diese Wörter mit denen auf dem anderen Gerät überein?"
 
-#: crates/app/src/devices.rs:351
+#: crates/app/src/devices.rs:402
 msgid "No"
 msgstr "Nein"
 
-#: crates/app/src/devices.rs:372
+#: crates/app/src/devices.rs:423
 msgid "This calendar already has entries"
 msgstr "Dieser Kalender hat schon Einträge"
 
-#: crates/app/src/devices.rs:373
+#: crates/app/src/devices.rs:425
 msgid "Merge both calendars into one, or replace this one by the calendar of the other device? Before replacing, a backup is made."
 msgstr "Beide Kalender zu einem zusammenführen, oder diesen durch den Kalender des anderen Geräts ersetzen? Vor dem Ersetzen wird eine Sicherung angelegt."
 
-#: crates/app/src/devices.rs:376
+#: crates/app/src/devices.rs:429
 #, rust-format
 msgid "Take over from “{}”"
 msgstr "Von „{}“ übernehmen"
 
-#: crates/app/src/devices.rs:377
+#: crates/app/src/devices.rs:430
 msgid "Merge both"
 msgstr "Beide zusammenführen"
 
@@ -871,30 +871,30 @@ msgid_plural "+ {} more"
 msgstr[0] "+ {} weiterer"
 msgstr[1] "+ {} weitere"
 
-#: crates/app/src/netsync.rs:255 crates/app/src/netsync.rs:346
+#: crates/app/src/netsync.rs:282 crates/app/src/netsync.rs:410
 msgid "Pairing was cancelled"
 msgstr "Koppeln wurde abgebrochen"
 
-#: crates/app/src/netsync.rs:259
+#: crates/app/src/netsync.rs:287
 msgid "The code did not fit"
 msgstr "Der Code passte nicht"
 
-#: crates/app/src/netsync.rs:416
+#: crates/app/src/netsync.rs:490
 #, rust-format
 msgid "“{}” paired"
 msgstr "„{}“ gekoppelt"
 
-#: crates/app/src/netsync.rs:422
+#: crates/app/src/netsync.rs:496
 #, rust-format
 msgid "Not paired: {}"
 msgstr "Nicht gekoppelt: {}"
 
-#: crates/app/src/netsync.rs:442
+#: crates/app/src/netsync.rs:525
 #, rust-format
 msgid "{} not reachable right now. Changes are synced as soon as you are in the same Wi-Fi."
 msgstr "{} gerade nicht erreichbar. Änderungen werden abgeglichen, sobald ihr im selben WLAN seid."
 
-#: crates/app/src/netsync.rs:446
+#: crates/app/src/netsync.rs:529
 #, rust-format
 msgid "Synced with {}"
 msgstr "Abgeglichen mit {}"
@@ -1191,7 +1191,7 @@ msgstr "Sicherung wiederhergestellt"
 msgid "Every entry has one kind. Its colour and symbol show what kind of entry something is."
 msgstr "Jeder Eintrag hat eine Art. Farbe und Symbol zeigen, was für ein Eintrag es ist."
 
-#: crates/app/src/prefs.rs:500 crates/app/src/window.rs:774
+#: crates/app/src/prefs.rs:500 crates/app/src/window.rs:780
 msgid "Subscribed"
 msgstr "Abonniert"
 
@@ -1271,7 +1271,7 @@ msgstr "Eine Routine ist eine Vorlage für Aufgaben. Sie entsteht auch direkt im
 msgid "No routines yet"
 msgstr "Noch keine Routinen"
 
-#: crates/app/src/prefs.rs:744 crates/app/src/window.rs:996
+#: crates/app/src/prefs.rs:744 crates/app/src/window.rs:1002
 #, rust-format
 msgid "{} subtask"
 msgid_plural "{} subtasks"
@@ -1330,7 +1330,7 @@ msgstr "Einträge"
 msgid "New entry"
 msgstr "Neuer Eintrag"
 
-#: crates/app/src/prefs.rs:899 crates/app/src/window.rs:678
+#: crates/app/src/prefs.rs:899 crates/app/src/window.rs:684
 msgid "Undo"
 msgstr "Rückgängig"
 
@@ -1648,7 +1648,7 @@ msgstr "Abo entfernen?"
 msgid "“{}” and its entries disappear from your calendar. You can subscribe again at any time."
 msgstr "„{}“ und seine Einträge verschwinden aus deinem Kalender. Du kannst jederzeit wieder abonnieren."
 
-#: crates/app/src/week.rs:169 crates/app/src/window.rs:1054
+#: crates/app/src/week.rs:169 crates/app/src/window.rs:1060
 msgid "all-day"
 msgstr "ganztägig"
 
@@ -1721,107 +1721,107 @@ msgstr "Suchen (Strg+F)"
 msgid "Search titles, places and notes"
 msgstr "Titel, Orte und Notizen durchsuchen"
 
-#: crates/app/src/window.rs:603
+#: crates/app/src/window.rs:607
 #, rust-format
 msgid "Synced with {} · {}"
 msgstr "Abgeglichen mit {} · {}"
 
-#: crates/app/src/window.rs:647
+#: crates/app/src/window.rs:653
 msgid "Next days"
 msgstr "Nächste Tage"
 
-#: crates/app/src/window.rs:657
+#: crates/app/src/window.rs:663
 #, rust-format
 msgid "Week {}"
 msgstr "Kalenderwoche {}"
 
-#: crates/app/src/window.rs:659
+#: crates/app/src/window.rs:665
 #, rust-format
 msgid "{} · this week"
 msgstr "{} · diese Woche"
 
-#: crates/app/src/window.rs:731
+#: crates/app/src/window.rs:737
 msgid "Undone"
 msgstr "Rückgängig gemacht"
 
-#: crates/app/src/window.rs:733
+#: crates/app/src/window.rs:739
 msgid "Nothing to undo"
 msgstr "Nichts rückgängig zu machen"
 
-#: crates/app/src/window.rs:739
+#: crates/app/src/window.rs:745
 #, rust-format
 msgid "Something went wrong: {}"
 msgstr "Etwas ist schiefgegangen: {}"
 
-#: crates/app/src/window.rs:751
+#: crates/app/src/window.rs:757
 #, rust-format
 msgid "Vacation {}: {} of {} days left"
 msgstr "Urlaub {}: {} von {} Tagen übrig"
 
-#: crates/app/src/window.rs:791
+#: crates/app/src/window.rs:797
 msgid "Show or hide"
 msgstr "Ein- oder ausblenden"
 
-#: crates/app/src/window.rs:851
+#: crates/app/src/window.rs:857
 #, rust-format
 msgid "Today · {}"
 msgstr "Heute · {}"
 
-#: crates/app/src/window.rs:853
+#: crates/app/src/window.rs:859
 #, rust-format
 msgid "Tomorrow · {}"
 msgstr "Morgen · {}"
 
-#: crates/app/src/window.rs:882
+#: crates/app/src/window.rs:888
 msgid "No entries"
 msgstr "Keine Einträge"
 
-#: crates/app/src/window.rs:883
+#: crates/app/src/window.rs:889
 msgid "Add your first entry with “New entry”."
 msgstr "Leg deinen ersten Eintrag mit „Neuer Eintrag“ an."
 
-#: crates/app/src/window.rs:927
+#: crates/app/src/window.rs:933
 #, rust-format
 msgid "{} result"
 msgid_plural "{} results"
 msgstr[0] "{} Treffer"
 msgstr[1] "{} Treffer"
 
-#: crates/app/src/window.rs:965
+#: crates/app/src/window.rs:971
 msgid "New task from routine"
 msgstr "Neue Aufgabe aus Routine"
 
-#: crates/app/src/window.rs:977
+#: crates/app/src/window.rs:983
 msgid "No routines yet. Save a task as routine, or add one in the settings."
 msgstr "Noch keine Routinen. Speichere eine Aufgabe als Routine oder lege eine in den Einstellungen an."
 
-#: crates/app/src/window.rs:1020
+#: crates/app/src/window.rs:1026
 msgid "Manage routines …"
 msgstr "Routinen verwalten …"
 
-#: crates/app/src/window.rs:1117
+#: crates/app/src/window.rs:1123
 #, rust-format
 msgid "Last update failed: {}"
 msgstr "Letzte Aktualisierung fehlgeschlagen: {}"
 
-#: crates/app/src/window.rs:1128
+#: crates/app/src/window.rs:1134
 msgid "Update now"
 msgstr "Jetzt aktualisieren"
 
-#: crates/app/src/window.rs:1129
+#: crates/app/src/window.rs:1135
 msgid "Name and colour …"
 msgstr "Name und Farbe …"
 
-#: crates/app/src/window.rs:1130
+#: crates/app/src/window.rs:1136
 msgid "Remove subscription …"
 msgstr "Abo entfernen …"
 
-#: crates/app/src/window.rs:1135
+#: crates/app/src/window.rs:1141
 #, rust-format
 msgid "Updated {}"
 msgstr "Aktualisiert {}"
 
-#: crates/app/src/window.rs:1143
+#: crates/app/src/window.rs:1149
 msgid "Not updated yet"
 msgstr "Noch nicht aktualisiert"
 
@@ -1883,9 +1883,17 @@ msgid "Daily backup with restore"
 msgstr "Tägliche Datensicherung mit Wiederherstellen"
 
 #: data/io.github.digistalter.Kalender.metainfo.xml.in:21
+msgid "Sync your computers in the home network, without a server or account"
+msgstr "Computer im Heimnetz abgleichen, ohne Server und ohne Konto"
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:22
 msgid "Public holidays for every German federal state"
 msgstr "Feiertage für jedes Bundesland"
 
-#: data/io.github.digistalter.Kalender.metainfo.xml.in:47
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:48
+msgid "Your computers can now sync with each other in the home network: directly, end-to-end encrypted, without a server and without an account. Pair them once with a code, then changes travel by themselves."
+msgstr "Deine Computer können sich jetzt im Heimnetz miteinander abgleichen: direkt, Ende-zu-Ende verschlüsselt, ohne Server und ohne Konto. Einmal mit einem Code koppeln, danach gehen Änderungen von selbst rüber."
+
+#: data/io.github.digistalter.Kalender.metainfo.xml.in:53
 msgid "First release."
 msgstr "Erste Version."

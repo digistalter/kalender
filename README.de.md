@@ -6,7 +6,7 @@
 
 Ein einfacher, moderner Kalender für Linux (GNOME und KDE), geschrieben in Rust mit GTK 4 und libadwaita. Schwester-App von [E-Mail](https://github.com/digistalter/email).
 
-Gemacht fürs Planen am Computer: Deine Einträge bleiben auf diesem Computer, ohne Konten und ohne Server. Einladungen gehen per E-Mail raus, und Kalender aus dem Netz wie Müllabfuhr oder Schulferien lassen sich abonnieren. Einen Abgleich mit dem Handy gibt es (noch) nicht.
+Gemacht fürs Planen am Computer: Deine Einträge bleiben auf diesem Computer, ohne Konten und ohne Server. Deine Computer gleichen sich direkt im Heimnetz miteinander ab. Einladungen gehen per E-Mail raus, und Kalender aus dem Netz wie Müllabfuhr oder Schulferien lassen sich abonnieren. Eine Android-App ist in Arbeit.
 
 ![Woche mit Terminen, Meetings und Aufgaben](data/screenshots/week.png)
 
@@ -27,6 +27,7 @@ Gemacht fürs Planen am Computer: Deine Einträge bleiben auf diesem Computer, o
 - **Ziehen** verschiebt Einträge auf eine andere Zeit oder einen anderen Tag, mit <kbd>Strg</kbd> entsteht eine Kopie. Rechtsklick: Duplizieren, Verschieben nach …, Als Routine speichern, Als Datei speichern, Löschen – immer mit „Rückgängig“.
 - **Einladungen per E-Mail.** Der Kalender bereitet die Mail mit einem Standard-Kalenderanhang vor und öffnet sie in deiner Mail-App. Google, Outlook, Apple und Thunderbird verstehen ihn. Antworten werden mit einem Klick übernommen.
 - **Abonnierte Kalender.** Link einfügen (webcal, .ics, auch Dropbox- und Nextcloud-Links), der Kalender zeigt ihn zum Lesen an und hält ihn aktuell.
+- **Abgleich im Heimnetz.** Koppel deine Computer einmal mit einem Code und vergleiche vier Prüfwörter; danach gleichen sie sich direkt miteinander ab, sobald sie im selben WLAN sind – Ende-zu-Ende verschlüsselt, ohne Server und ohne Konto. Alle Geräte sind gleichberechtigt; was unterwegs geändert wurde, kommt beim nächsten Treffen nach.
 - **Tägliche Datensicherung** aller Daten in einen frei wählbaren Ordner, mit Wiederherstellen.
 - **Vergangenes und Erledigtes wird abgeblendet**, damit das Nächste hervortritt.
 - Erinnerungen über die Systembenachrichtigungen, auch wenn das Fenster nie geöffnet wurde. Deutsch und Englisch.
@@ -37,18 +38,18 @@ Die Installationsdateien liegen bei jeder Version unter [Releases](https://githu
 
 ### Ubuntu, Debian, Linux Mint, Pop!_OS, elementary OS
 
-Datei: `kalender_1.0.0_amd64.deb` · für Ubuntu 24.04 und neuer, Debian 13 und neuer, Linux Mint 22 und neuer
+Datei: `kalender_1.1.0_amd64.deb` · für Ubuntu 24.04 und neuer, Debian 13 und neuer, Linux Mint 22 und neuer
 
 ```bash
-sudo apt install ./kalender_1.0.0_amd64.deb
+sudo apt install ./kalender_1.1.0_amd64.deb
 ```
 
 ### Fedora
 
-Datei: `kalender-1.0.0-1.x86_64.rpm` · für die aktuellen Fedora-Versionen
+Datei: `kalender-1.1.0-1.x86_64.rpm` · für die aktuellen Fedora-Versionen
 
 ```bash
-sudo dnf install ./kalender-1.0.0-1.x86_64.rpm
+sudo dnf install ./kalender-1.1.0-1.x86_64.rpm
 ```
 
 ### Alle anderen Systeme (Flatpak)
